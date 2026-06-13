@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>いまのAI最新トレンドはどこへ向かっているのか｜プロンプトから自律駆動へ</title>
-  <meta name="description" content="いまのAI最新トレンドは、プロンプトで操作する段階から、ループを設計して自律的に動かす段階へ移りつつあります。AIエージェント、ReActループ、MCP、X上の最新議論、検証設計、コストの壁、実務での使い方をやさしく整理しました。">
+  <title>いまのAIの最新トレンドはどこへ向かうのか｜プロンプトから自律駆動へ</title>
+  <meta name="description" content="いまのAIの最新トレンドは、プロンプトで操作する段階から、ループを設計して自律的に動かす段階へ移りつつあります。AIエージェント、ReActループ、MCP、X上の最新議論、検証設計、コストの壁、実務での使い方をやさしく整理しました。">
   <style>
     :root {
       --ink: #172026;
@@ -107,9 +107,13 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(38px, 6vw, 72px);
-      line-height: 1.08;
+      font-size: clamp(40px, 5.1vw, 68px);
+      line-height: 1.12;
       letter-spacing: 0;
+    }
+
+    h1 span {
+      display: block;
     }
 
     .hero-subtitle {
@@ -127,6 +131,10 @@
       color: #34444f;
       font-size: clamp(17px, 2vw, 21px);
       font-weight: 650;
+    }
+
+    .lead-line {
+      display: block;
     }
 
     .meta {
@@ -962,9 +970,9 @@
       <div class="wrap hero-grid">
         <div>
           <p class="eyebrow">AI Agents / Loop Design / 2026 Trend</p>
-          <h1>いまのAI最新トレンドは<br>どこへ向かっているのか</h1>
+          <h1><span>いまのAIの</span><span>最新トレンドは</span><span>どこへ向かうのか</span></h1>
           <p class="hero-subtitle">プロンプトから<br>「自律駆動」へ</p>
-          <p class="lead">AIの使い方は「うまく命令する」段階から、「AIが考え、動き、確認し、やり直す仕組みを作る」段階へ移りつつあります。難しく聞こえますが、要するに“AIに毎回お願いする”から“AIが迷わず進める流れを用意する”へ変わっている、という話です。</p>
+          <p class="lead"><span class="lead-line">AIの使い方は、「うまく命令する」段階から、</span><span class="lead-line">「AIが考え、動き、確認し、</span><span class="lead-line">やり直す流れを作る」段階へ移りつつあります。</span><span class="lead-line">要するに、“AIに毎回お願いする”から</span><span class="lead-line">“AIが迷わず進める流れを用意する”へ変わっています。</span></p>
           <div class="meta">
             <span class="pill">公開用ブログ記事</span>
             <span class="pill">読了目安 15分</span>
@@ -1014,7 +1022,7 @@
         <article class="article">
           <section class="notice" id="summary">
             <h2>この記事の結論</h2>
-            <p>この1〜2年で、AIの中心は「チャットで答えをもらう」使い方から、「ゴールを渡し、AIがツールを使いながら作業を進める」使い方へ移っています。ポイントは、プロンプトを一発でうまく書くことだけではありません。<strong>AIがどう考え、どう動き、どう失敗に気づき、いつ止まるか</strong>まで含めて、仕事の流れを作ることです。X上でも、Addy Osmani（Google Cloud AIのDirectorで、Chromeや開発者ツール領域でも知られるエンジニア）やRahul（AIエージェントやプロダクト設計を実務寄りに整理している発信者）などが「長時間動くエージェント」「ループ設計」を繰り返し論点化しており、この記事ではその流れを公式情報とあわせて整理します。</p>
+            <p>ここ最近のAIトレンドを見ると、中心は「チャットで答えをもらう」使い方から、「ゴールを渡し、AIがツールを使いながら作業を進める」使い方へ移っています。ポイントは、プロンプトを一発でうまく書くことだけではありません。<strong>AIがどう考え、どう動き、どう失敗に気づき、いつ止まるか</strong>まで含めて、仕事の流れを作ることです。X上でも、OpenAI Developers公式アカウントはAgents SDKで長時間動くエージェントを扱う流れを出しており、Claude Codeを作ったBoris Chernyも <code>/loop</code> や <code>/schedule</code> の使い方を紹介しています。Addy Osmani（Google Cloud AIのDirectorで、Chromeや開発者ツール領域でも知られるエンジニア）やRahul（AIエージェントやプロダクト設計を実務寄りに整理している発信者）の議論も含め、この記事ではその流れを公式情報とあわせて整理します。</p>
             <div class="plain-note"><b>先にざっくり言うと。</b> これから大事になるのは「AIに何と頼むか」だけではなく、「AIが途中で迷わないように、道順・道具・確認ポイントを用意すること」です。料理でいえば、レシピを聞く段階から、材料確認、調理、味見、作り直しまで任せる段階に近づいています。</div>
             <div class="takeaways">
               <div class="takeaway"><b>1. 指示から設計へ</b>人間は細かい操作係ではなく、ゴール・制約・合格基準を決める側へ移る。</div>
@@ -1023,12 +1031,12 @@
             </div>
             <div class="x-preview-grid" aria-label="本文参照元">
               <div class="x-preview-card">
-                <a class="x-preview-link" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">https://x.com/addyosmani/status/2061696286840279057</a>
-                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/addyosmani/status/2061696286840279057"></a></blockquote>
+                <a class="x-preview-link" href="https://x.com/OpenAIDevs/status/2044466699785920937" target="_blank" rel="noopener">https://x.com/OpenAIDevs/status/2044466699785920937</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/OpenAIDevs/status/2044466699785920937"></a></blockquote>
               </div>
               <div class="x-preview-card">
-                <a class="x-preview-link" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a>
-                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sairahul1/status/2064277888216555684"></a></blockquote>
+                <a class="x-preview-link" href="https://x.com/bcherny/status/2038454341884154269" target="_blank" rel="noopener">https://x.com/bcherny/status/2038454341884154269</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/bcherny/status/2038454341884154269"></a></blockquote>
               </div>
             </div>
           </section>
@@ -1039,7 +1047,7 @@
             <div class="trend-grid">
               <div class="trend-card">
                 <b>1. プロンプトではなくループを設計する</b>
-                <p>Addy OsmaniやRahulの投稿では、「人間が毎回プロンプトを書く」のではなく、AI自身が次のプロンプトや作業を進めるループを作る発想が中心になっています。</p>
+                <p>OpenAI Developers公式やBoris Chernyの投稿を見ると、「一回の指示」よりも、AIが作業を続けるための実行環境、ハーネス、定期実行、確認ループが主題になっています。</p>
               </div>
               <div class="trend-card">
                 <b>2. 長時間動くエージェントが現実味を帯びている</b>
@@ -1479,6 +1487,8 @@ log: 判断理由・変更点・未解決事項の残し方</pre>
               <li><b>Anthropic: Code execution with MCP</b><a href="https://www.anthropic.com/engineering/code-execution-with-mcp" target="_blank" rel="noopener">https://www.anthropic.com/engineering/code-execution-with-mcp</a></li>
               <li><b>OpenAI Agents SDK</b><a href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">https://openai.github.io/openai-agents-python/agents/</a></li>
               <li><b>OpenAI API: Agents guide</b><a href="https://developers.openai.com/api/docs/guides/agents" target="_blank" rel="noopener">https://developers.openai.com/api/docs/guides/agents</a></li>
+              <li><b>OpenAI Developers：Agents SDKとlong-running agents</b><a href="https://x.com/OpenAIDevs/status/2044466699785920937" target="_blank" rel="noopener">https://x.com/OpenAIDevs/status/2044466699785920937</a></li>
+              <li><b>Boris Cherny：Claude Codeの /loop と /schedule</b><a href="https://x.com/bcherny/status/2038454341884154269" target="_blank" rel="noopener">https://x.com/bcherny/status/2038454341884154269</a></li>
               <li><b>Addy Osmani：長時間稼働エージェント</b><a href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">https://x.com/addyosmani/status/2061696286840279057</a></li>
               <li><b>Addy Osmani：Loop Engineering</b><a href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">https://x.com/addyosmani/status/2064127981161959567</a></li>
               <li><b>Rahul：Loops</b><a href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a></li>
