@@ -436,6 +436,36 @@
       overflow-wrap: anywhere;
     }
 
+    .x-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 22px 0 6px;
+    }
+
+    .x-preview-card {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid #d6e2e6;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(24, 43, 54, 0.06);
+    }
+
+    .x-preview-link {
+      display: block;
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-weight: 750;
+      overflow-wrap: anywhere;
+    }
+
+    .x-preview-card .twitter-tweet {
+      margin: 0 !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+
     .compare {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -692,7 +722,7 @@
         min-height: 360px;
       }
 
-      .takeaways, .compare, .parts, .use-flow, .example-list {
+      .takeaways, .compare, .parts, .use-flow, .example-list, .x-preview-grid {
         grid-template-columns: 1fr;
       }
 
@@ -806,15 +836,15 @@
               <div class="takeaway"><b>2. ループが本体</b>考える、動く、観察する、直す。この循環がエージェントの実用性を決める。</div>
               <div class="takeaway"><b>3. 検証は手放さない</b>自律性を上げるほど、品質ゲートと停止条件が重要になる。</div>
             </div>
-            <div class="source-grid" aria-label="本文参照元">
-              <a class="source-card" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Trend source</small><b>Addy Osmani：長時間稼働エージェントの潮流</b><span>https://x.com/addyosmani/status/2061696286840279057</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Loop source</small><b>Rahul：Loops / AI Engineer向けの整理</b><span>https://x.com/sairahul1/status/2064277888216555684</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="本文参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">https://x.com/addyosmani/status/2061696286840279057</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/addyosmani/status/2061696286840279057"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sairahul1/status/2064277888216555684"></a></blockquote>
+              </div>
             </div>
           </section>
 
@@ -840,10 +870,10 @@
             </div>
             <p>Anthropicは、エージェントを「環境からフィードバックを受け取りながら、ツールを使って自分で進め方を決めるシステム」として整理しています。複雑なフレームワークより、シンプルで組み合わせやすい設計が成功しやすい、という実務上の知見も示されています。<a class="cite" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic</a></p>
             <div class="source-grid" aria-label="AI活用の3段階の参照元">
-              <a class="source-card" href="https://x.com/sairahul1/status/2064988918630736353" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Agent explainer</small><b>Rahul：How To Build AI Agents in 2026</b><span>AI、AIエージェント、自律型AIの違いを整理する元ネタとして参照。<br>https://x.com/sairahul1/status/2064988918630736353</span></div>
-              </a>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/sairahul1/status/2064988918630736353" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064988918630736353</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sairahul1/status/2064988918630736353"></a></blockquote>
+              </div>
               <a class="source-card" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">
                 <div class="source-thumb official">A</div>
                 <div><small>Official / Definition</small><b>Anthropic：Building effective agents</b><span>エージェントの定義と実装上の考え方を補強。<br>https://www.anthropic.com/research/building-effective-agents</span></div>
@@ -864,11 +894,11 @@
               <div class="step">Done<span>完了</span></div>
             </div>
             <p>これまで多くの人は、AIに一回プロンプトを投げて終わりでした。これから重要になるのは、一回の答えをうまく書かせることだけではなく、<strong>AIが次の一歩を決め、結果を見て軌道修正する流れ</strong>を設計することです。人間でいえば「やってみて、確認して、直す」が仕事の基本です。AIにもその流れを持たせると、ただの回答役から作業パートナーに近づきます。</p>
-            <div class="source-grid" aria-label="ループ設計の参照元">
-              <a class="source-card" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Loop Engineering</small><b>Addy Osmani：Loop Engineering</b><span>ループ設計、理解の負債、検証設計の論点として参照。<br>https://x.com/addyosmani/status/2064127981161959567</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="ループ設計の参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">https://x.com/addyosmani/status/2064127981161959567</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/addyosmani/status/2064127981161959567"></a></blockquote>
+              </div>
               <a class="source-card" href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">
                 <div class="source-thumb official">R</div>
                 <div><small>Paper / ReAct</small><b>ReAct：Reasoning + Acting</b><span>「考える」と「行動する」を組み合わせる基本構造の論文。<br>https://arxiv.org/abs/2210.03629</span></div>
@@ -889,10 +919,10 @@
             <p>OpenAIのAgents SDKでも、エージェントは指示、ツール、ハンドオフ、ガードレール、構造化出力などを組み合わせて設計するものとして説明されています。つまり「賢いモデルを呼ぶ」だけではなく、周辺の実行設計が重要です。<a class="cite" href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">OpenAI Agents SDK</a></p>
             <div class="plain-note"><b>ここがよくある勘違いです。</b> モデルが賢ければ全部うまくいく、というより、賢いモデルが動きやすい環境を作るほど成果が安定します。優秀な人に仕事を頼むときでも、目的・資料・権限・締切・確認基準がないと困るのと同じです。</div>
             <div class="source-grid" aria-label="構成要素の参照元">
-              <a class="source-card" href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Verification</small><b>Lance Martin：検証用サブエージェントの考え方</b><span>作る役とチェックする役を分ける文脈として参照。<br>https://x.com/RLanceMartin/status/2064397389189071163</span></div>
-              </a>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">https://x.com/RLanceMartin/status/2064397389189071163</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/RLanceMartin/status/2064397389189071163"></a></blockquote>
+              </div>
               <a class="source-card" href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">
                 <div class="source-thumb official">O</div>
                 <div><small>Official / SDK</small><b>OpenAI Agents SDK</b><span>ツール、ハンドオフ、ガードレールの整理に使用。<br>https://openai.github.io/openai-agents-python/agents/</span></div>
@@ -905,15 +935,15 @@
             <p>現在のトレンドは、単にAIの返答が速くなることではありません。数分で終わる補助作業から、数時間単位で走る調査、コード修正、データ整理、レポート作成へと、AIが担える仕事の長さが伸びています。昔は画面の前で返答を待っていましたが、これからは「ここまでやっておいて」と任せる場面が増えていきます。</p>
             <p>この流れを支えているのが、ツール連携の標準化です。たとえばAnthropicが公開したModel Context Protocolは、AIアプリケーションと外部データ・業務ツールをつなぐためのオープン標準として紹介されています。<a class="cite" href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">MCP announcement</a></p>
             <p>今後は、AIごとに個別連携を作るのではなく、AIが使える道具箱を標準化していく方向に進みます。これは「AI版のUSB規格」のような発想です。接続が標準化されるほど、エージェントは社内の資料、SaaS、コードベース、データベースに自然にアクセスしやすくなります。</p>
-            <div class="source-grid" aria-label="最新トレンドの参照元">
-              <a class="source-card" href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Trend phrase</small><b>ATSUSHI AI：「待つ」から「任せて寝る」へ</b><span>表現として参照。投稿内の未検証情報は本文では断定材料にしていません。<br>https://x.com/ATSUSHI_AI_0/status/2065263742062129410</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Memory</small><b>Claude Code Studio：Memory Files速報</b><span>メモリ設計・ファイル型記録の話題として参照。<br>https://x.com/ClaudeCode_love/status/2058840543820689577</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="最新トレンドの参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">https://x.com/ATSUSHI_AI_0/status/2065263742062129410</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">https://x.com/ClaudeCode_love/status/2058840543820689577</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/ClaudeCode_love/status/2058840543820689577"></a></blockquote>
+              </div>
             </div>
             <div class="warning">
               <strong>ただし、任せる範囲が広がるほど危険も増えます。</strong><br>
@@ -939,15 +969,15 @@
             <h2>コストという現実の壁</h2>
             <p>自律エージェントは、裏側で何度も推論し、ツールを呼び、結果を読み、やり直します。つまり、一回のチャットよりもトークンと実行回数を多く使います。便利になるぶん、放っておくとコストも増えます。</p>
             <p>そのため、本番運用では「どの作業を高性能モデルに任せるか」「どこを軽量モデルやルール処理に逃がすか」「どのタイミングで人間確認を挟むか」を設計する必要があります。OpenAIのAgents SDKがガードレールや人間レビューをワークフローの成長に合わせて扱うよう案内しているのも、この現実に近い話です。<a class="cite" href="https://developers.openai.com/api/docs/guides/agents" target="_blank" rel="noopener">OpenAI docs</a></p>
-            <div class="source-grid" aria-label="コストと運用の参照元">
-              <a class="source-card" href="https://x.com/ai_kisuke/status/2065195159244112318" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Setup example</small><b>キスケ：実践セットアップ例</b><span>モデル分担・運用設計の実例として参照。<br>https://x.com/ai_kisuke/status/2065195159244112318</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Token cost</small><b>Rahul：Loopsとトークンコスト</b><span>ループ運用に伴うコスト感の話題として参照。<br>https://x.com/sairahul1/status/2064277888216555684</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="コストと運用の参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/ai_kisuke/status/2065195159244112318" target="_blank" rel="noopener">https://x.com/ai_kisuke/status/2065195159244112318</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/ai_kisuke/status/2065195159244112318"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sairahul1/status/2064277888216555684"></a></blockquote>
+              </div>
             </div>
             <div class="quote">これから問われるのは「AIに任せられるか」だけではありません。「どこまで任せると、品質とコストのバランスが合うか」です。</div>
           </section>
@@ -963,15 +993,15 @@
             <p>記事、コード、レポート、広告クリエイティブなど、出力を作る役と検証する役を分ける構成が一般化します。これは人間の仕事でも、制作とレビューを分ける方が品質が安定しやすいのと同じです。</p>
             <h3>4. 理解の負債が新しいリスクになる</h3>
             <p>AIが速く作れるほど、人間が読んでいない成果物も増えます。自分が理解していないコード、設計、文章が積み上がると、後から修正できなくなります。自律化が進むほど、人間側の理解とレビューはむしろ重要になります。</p>
-            <div class="source-grid" aria-label="予測の参照元">
-              <a class="source-card" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Long-running agents</small><b>Addy Osmani：長時間タスクとエージェント</b><span>タスクの長時間化・長期自律化の観測として参照。<br>https://x.com/addyosmani/status/2061696286840279057</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Understanding debt</small><b>Addy Osmani：Loop Engineering</b><span>理解の負債と検証の重要性の文脈として参照。<br>https://x.com/addyosmani/status/2064127981161959567</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="予測の参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">https://x.com/addyosmani/status/2061696286840279057</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/addyosmani/status/2061696286840279057"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">https://x.com/addyosmani/status/2064127981161959567</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/addyosmani/status/2064127981161959567"></a></blockquote>
+              </div>
             </div>
           </section>
 
@@ -1074,15 +1104,15 @@
               実用では「goalで目的を固める」「loopで改善する」「checkで止める」の3つを小さく回すだけでもかなり効果があります。慣れてきたら、調査、下書き、検証、投稿準備のように範囲を広げていくのが安全です。
             </div>
 
-            <div class="source-grid" aria-label="goal loop 実践の参照元">
-              <a class="source-card" href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Practical use</small><b>そら：/loop と /goal の使い分け</b><span>goal と loop を分けて実務に使う考え方の参考。<br>https://x.com/sora19ai/status/2065560599623590174</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Playbook</small><b>AI Edge：/loop プレイブック</b><span>反復改善の型を考える参考。<br>https://x.com/aiedge_/status/2065011214783262846</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="goal loop 実践の参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">https://x.com/sora19ai/status/2065560599623590174</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sora19ai/status/2065560599623590174"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">https://x.com/aiedge_/status/2065011214783262846</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/aiedge_/status/2065011214783262846"></a></blockquote>
+              </div>
             </div>
           </section>
 
@@ -1099,23 +1129,23 @@
             </div>
             <p>AIは、理解を避けるために使うと危険です。一方で、理解したうえでレバレッジをかける道具として使えば、仕事の速度も範囲も大きく広がります。大事なのは、AIに丸投げすることではなく、AIが良い仕事をしやすい形に仕事を整えることです。</p>
             <div class="quote">これから重要になるのは、プロンプトをうまく書く人ではなく、AIが発見し、計画し、実行し、検証し、止まる仕組みを設計できる人です。</div>
-            <div class="source-grid" aria-label="実践ステップの参照元">
-              <a class="source-card" href="https://x.com/koutarou_furuno/status/2065034757789073762" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Japanese note</small><b>古野光太朗：loop設計の日本語整理</b><span>VISION.mdなど、実践ステップの参考として参照。<br>https://x.com/koutarou_furuno/status/2065034757789073762</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Playbook</small><b>AI Edge：/loop プレイブック</b><span>小さなループを作る運用例として参照。<br>https://x.com/aiedge_/status/2065011214783262846</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Practical use</small><b>そら：/loop と /goal の使い分け</b><span>ゴール設定とループ運用を分けて考える参考として追加。<br>https://x.com/sora19ai/status/2065560599623590174</span></div>
-              </a>
-              <a class="source-card" href="https://x.com/aohiroshi/status/2064905492284231778" target="_blank" rel="noopener">
-                <div class="source-thumb">𝕏</div>
-                <div><small>X / Japanese summary</small><b>Hiroshi：元記事の日本語要約</b><span>英語圏のループ設計論点を日本語で追う補助線として追加。<br>https://x.com/aohiroshi/status/2064905492284231778</span></div>
-              </a>
+            <div class="x-preview-grid" aria-label="実践ステップの参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/koutarou_furuno/status/2065034757789073762" target="_blank" rel="noopener">https://x.com/koutarou_furuno/status/2065034757789073762</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/koutarou_furuno/status/2065034757789073762"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">https://x.com/aiedge_/status/2065011214783262846</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/aiedge_/status/2065011214783262846"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">https://x.com/sora19ai/status/2065560599623590174</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sora19ai/status/2065560599623590174"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/aohiroshi/status/2064905492284231778" target="_blank" rel="noopener">https://x.com/aohiroshi/status/2064905492284231778</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/aohiroshi/status/2064905492284231778"></a></blockquote>
+              </div>
             </div>
           </section>
 
@@ -1147,5 +1177,6 @@
       </div>
     </main>
   </div>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
