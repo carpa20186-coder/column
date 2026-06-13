@@ -137,6 +137,25 @@
       display: block;
     }
 
+    .marker {
+      padding: 0 0.08em;
+      border-radius: 0.18em;
+      background: linear-gradient(180deg, transparent 54%, rgba(255, 214, 99, 0.62) 54%);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      font-weight: 850;
+    }
+
+    .marker-strong {
+      padding: 0.02em 0.18em;
+      border-radius: 0.22em;
+      background: linear-gradient(180deg, transparent 46%, rgba(35, 166, 166, 0.24) 46%);
+      color: var(--green-dark);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      font-weight: 900;
+    }
+
     .meta {
       display: flex;
       flex-wrap: wrap;
@@ -828,6 +847,125 @@
       line-height: 1.75;
     }
 
+    .production-flow {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .one-command {
+      padding: 18px 20px;
+      border: 1px solid rgba(22, 130, 109, 0.24);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(22, 130, 109, 0.12), rgba(255, 214, 99, 0.2));
+      color: #20353c;
+      font-size: 18px;
+      font-weight: 850;
+    }
+
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) auto minmax(0, 1.85fr) auto minmax(0, 0.95fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .flow-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdfc;
+      box-shadow: 0 12px 26px rgba(24, 43, 54, 0.07);
+    }
+
+    .flow-panel h3 {
+      margin: 0 0 12px;
+      color: var(--green-dark);
+      font-size: 17px;
+    }
+
+    .flow-items {
+      display: grid;
+      gap: 8px;
+    }
+
+    .flow-item {
+      display: flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid rgba(23, 32, 38, 0.1);
+      color: #33444c;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--green-dark);
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .agent-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .agent-card {
+      min-height: 74px;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(22, 130, 109, 0.18);
+      background: #fff;
+    }
+
+    .agent-card b {
+      display: block;
+      color: var(--green-dark);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .agent-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .publish-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .publish-step {
+      min-height: 72px;
+      padding: 12px 10px;
+      border-radius: var(--radius);
+      background: #f0f7f5;
+      border: 1px solid rgba(22, 130, 109, 0.18);
+      color: var(--green-dark);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .publish-step span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
     .checklist {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -906,7 +1044,16 @@
         min-height: 360px;
       }
 
-      .takeaways, .compare, .parts, .use-flow, .example-list, .trend-grid, .x-preview-grid, .youtube-grid {
+      .takeaways, .compare, .parts, .use-flow, .example-list, .trend-grid, .x-preview-grid, .youtube-grid, .flow-diagram, .publish-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-arrow {
+        min-height: 24px;
+        transform: rotate(90deg);
+      }
+
+      .agent-board {
         grid-template-columns: 1fr;
       }
 
@@ -972,7 +1119,7 @@
           <p class="eyebrow">AI Agents / Loop Design / 2026 Trend</p>
           <h1><span>いまのAIの</span><span>最新トレンドは</span><span>どこへ向かうのか</span></h1>
           <p class="hero-subtitle">プロンプトから<br>「自律駆動」へ</p>
-          <p class="lead"><span class="lead-line">AIの使い方は、「うまく命令する」段階から、</span><span class="lead-line">「AIが考え、動き、確認し、</span><span class="lead-line">やり直す流れを作る」段階へ移りつつあります。</span><span class="lead-line">要するに、“AIに毎回お願いする”から</span><span class="lead-line">“AIが迷わず進める流れを用意する”へ変わっています。</span></p>
+          <p class="lead"><span class="lead-line">AIの使い方は、<span class="marker">「うまく命令する」段階</span>から、</span><span class="lead-line">「AIが考え、動き、確認し、</span><span class="lead-line"><span class="marker">やり直す流れを作る」段階</span>へ移りつつあります。</span><span class="lead-line">要するに、“AIに毎回お願いする”から</span><span class="lead-line"><span class="marker-strong">“AIが迷わず進める流れを用意する”</span>へ変わっています。</span></p>
           <div class="meta">
             <span class="pill">公開用ブログ記事</span>
             <span class="pill">読了目安 15分</span>
@@ -1004,6 +1151,7 @@
         <nav class="toc" aria-label="目次">
           <strong>目次</strong>
           <a href="#summary">この記事の結論</a>
+          <a href="#making-flow">この記事制作の流れ</a>
           <a href="#x-trends">X検索で見えた論点</a>
           <a href="#youtube-fable">YouTubeで見る自律駆動</a>
           <a href="#three-stages">AI活用の3段階</a>
@@ -1022,8 +1170,8 @@
         <article class="article">
           <section class="notice" id="summary">
             <h2>この記事の結論</h2>
-            <p>ここ最近のAIトレンドを見ると、中心は「チャットで答えをもらう」使い方から、「ゴールを渡し、AIがツールを使いながら作業を進める」使い方へ移っています。ポイントは、プロンプトを一発でうまく書くことだけではありません。<strong>AIがどう考え、どう動き、どう失敗に気づき、いつ止まるか</strong>まで含めて、仕事の流れを作ることです。X上でも、OpenAI Developers公式アカウントはAgents SDKで長時間動くエージェントを扱う流れを出しており、Claude Codeを作ったBoris Chernyも <code>/loop</code> や <code>/schedule</code> の使い方を紹介しています。Addy Osmani（Google Cloud AIのDirectorで、Chromeや開発者ツール領域でも知られるエンジニア）やRahul（AIエージェントやプロダクト設計を実務寄りに整理している発信者）の議論も含め、この記事ではその流れを公式情報とあわせて整理します。</p>
-            <div class="plain-note"><b>先にざっくり言うと。</b> これから大事になるのは「AIに何と頼むか」だけではなく、「AIが途中で迷わないように、道順・道具・確認ポイントを用意すること」です。料理でいえば、レシピを聞く段階から、材料確認、調理、味見、作り直しまで任せる段階に近づいています。</div>
+            <p>ここ最近のAIトレンドを見ると、中心は「チャットで答えをもらう」使い方から、<span class="marker">「ゴールを渡し、AIがツールを使いながら作業を進める」使い方</span>へ移っています。ポイントは、プロンプトを一発でうまく書くことだけではありません。<strong class="marker-strong">AIがどう考え、どう動き、どう失敗に気づき、いつ止まるか</strong>まで含めて、仕事の流れを作ることです。X上でも、OpenAI Developers公式アカウントはAgents SDKで長時間動くエージェントを扱う流れを出しており、Claude Codeを作ったBoris Chernyも <code>/loop</code> や <code>/schedule</code> の使い方を紹介しています。Addy Osmani（Google Cloud AIのDirectorで、Chromeや開発者ツール領域でも知られるエンジニア）やRahul（AIエージェントやプロダクト設計を実務寄りに整理している発信者）の議論も含め、この記事ではその流れを公式情報とあわせて整理します。</p>
+            <div class="plain-note"><b>先にざっくり言うと。</b> これから大事になるのは「AIに何と頼むか」だけではなく、<span class="marker-strong">「AIが途中で迷わないように、道順・道具・確認ポイントを用意すること」</span>です。料理でいえば、レシピを聞く段階から、材料確認、調理、味見、作り直しまで任せる段階に近づいています。</div>
             <div class="takeaways">
               <div class="takeaway"><b>1. 指示から設計へ</b>人間は細かい操作係ではなく、ゴール・制約・合格基準を決める側へ移る。</div>
               <div class="takeaway"><b>2. ループが本体</b>考える、動く、観察する、直す。この循環がエージェントの実用性を決める。</div>
@@ -1041,17 +1189,66 @@
             </div>
           </section>
 
+          <section class="section" id="making-flow">
+            <h2>この記事自体も「自律駆動」で作れる</h2>
+            <p>このブログ記事の制作も、まさに自律駆動の例です。人間が細かく「次は検索して、次は要約して、次はHTMLを書いて」と毎回指示するのではなく、最初にゴールを渡せば、AIが情報収集、整理、執筆、デザイン、公開準備まで流れとして進められます。裏側では、サブエージェントのように役割を分けた複数のAIが動くイメージです。</p>
+            <div class="production-flow">
+              <div class="one-command">一つの指示：AIの最新トレンドを調べ、X・YouTube・公式情報を踏まえて、公開できるブログ記事にしてSlackへ共有して。</div>
+              <div class="flow-diagram" aria-label="この記事制作における自律駆動フロー">
+                <div class="flow-panel">
+                  <h3>1. 情報を集める</h3>
+                  <div class="flow-items">
+                    <div class="flow-item">ブラウザ検索</div>
+                    <div class="flow-item">Xの投稿確認</div>
+                    <div class="flow-item">YouTube確認</div>
+                    <div class="flow-item">公式資料確認</div>
+                  </div>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="flow-panel">
+                  <h3>2. サブエージェントに分かれて処理する</h3>
+                  <div class="agent-board">
+                    <div class="agent-card"><b>リサーチ担当</b><span>参照元を探し、使える情報を選ぶ。</span></div>
+                    <div class="agent-card"><b>構成担当</b><span>読者に伝わる順番へ並べる。</span></div>
+                    <div class="agent-card"><b>執筆担当</b><span>親しみやすい文章へ整える。</span></div>
+                    <div class="agent-card"><b>検証担当</b><span>引用、URL、論理のズレを見る。</span></div>
+                    <div class="agent-card"><b>デザイン担当</b><span>HTML、CSS、図解、カード表示を作る。</span></div>
+                    <div class="agent-card"><b>公開担当</b><span>GitHub Pagesなどへ反映する。</span></div>
+                  </div>
+                </div>
+                <div class="flow-arrow" aria-hidden="true">→</div>
+                <div class="flow-panel">
+                  <h3>3. 外に出せる形にする</h3>
+                  <div class="flow-items">
+                    <div class="flow-item">HTML生成</div>
+                    <div class="flow-item">プレビューで確認</div>
+                    <div class="flow-item">公開URLへアップ</div>
+                    <div class="flow-item">Slack投稿</div>
+                  </div>
+                </div>
+              </div>
+              <div class="publish-strip" aria-label="一つの指示で進む工程">
+                <div class="publish-step">検索<span>必要な情報源を探す</span></div>
+                <div class="publish-step">整理<span>要点と根拠を分ける</span></div>
+                <div class="publish-step">制作<span>文章と図解を作る</span></div>
+                <div class="publish-step">公開<span>URLで見られる状態にする</span></div>
+                <div class="publish-step">共有<span>Slackへ届ける</span></div>
+              </div>
+            </div>
+            <div class="plain-note"><b>人間の役割も残ります。</b> 完全放置ではなく、最初にゴールを決め、途中で見た目や文体を確認し、公開前に「これで出してよいか」を判断します。自律駆動は、人間が不要になる話ではなく、<span class="marker-strong">人間が細かい作業指示から離れて、目的と品質を見る側に回る</span>という話です。</div>
+          </section>
+
           <section class="section" id="x-trends">
             <h2>X検索で見えた、いまの論点</h2>
-            <p>今回、X上でも「Loop Engineering」「long-running agents」「/goal / /loop」などで検索し、直近で何が話題になっているかを確認しました。細かいツール名やモデル名は流行り廃りがありますが、共通していたのは <strong>AIに一回お願いする話から、AIが何度も考え直す作業設計の話へ移っている</strong> という点です。</p>
+            <p>今回、X上でも「Loop Engineering」「long-running agents」「/goal / /loop」などで検索し、直近で何が話題になっているかを確認しました。細かいツール名やモデル名は流行り廃りがありますが、共通していたのは <strong class="marker-strong">AIに一回お願いする話から、AIが何度も考え直す作業設計の話へ移っている</strong> という点です。</p>
             <div class="trend-grid">
               <div class="trend-card">
                 <b>1. プロンプトではなくループを設計する</b>
-                <p>OpenAI Developers公式やBoris Chernyの投稿を見ると、「一回の指示」よりも、AIが作業を続けるための実行環境、ハーネス、定期実行、確認ループが主題になっています。</p>
+                <p>OpenAI Developers公式やBoris Chernyの投稿を見ると、「一回の指示」よりも、AIが作業を続けるための<span class="marker">実行環境、ハーネス、定期実行、確認ループ</span>が主題になっています。</p>
               </div>
               <div class="trend-card">
                 <b>2. 長時間動くエージェントが現実味を帯びている</b>
-                <p>数分の補助作業ではなく、調査・コード修正・検証を長く回すエージェント運用が話題になっています。ただし、長く動かすほどログ、停止条件、通知が重要になります。</p>
+                <p>数分の補助作業ではなく、調査・コード修正・検証を長く回すエージェント運用が話題になっています。ただし、長く動かすほど<span class="marker">ログ、停止条件、通知</span>が重要になります。</p>
               </div>
               <div class="trend-card">
                 <b>3. 作業役と確認役を分ける流れが強い</b>
@@ -1076,7 +1273,7 @@
 
           <section class="section" id="youtube-fable">
             <h2>YouTubeで見る自律駆動・ループ設計の日本語情報</h2>
-            <p>Xは論点の立ち上がりを見るのに向いています。一方で、実際の作業イメージや画面操作はYouTubeの解説・実演動画の方が掴みやすいです。ここではFable 5単体の速報ではなく、<strong>ループ設計、/goal、/loop、AIエージェントを育てる考え方</strong>に近い日本語動画を中心に並べます。</p>
+            <p>Xは論点の立ち上がりを見るのに向いています。一方で、実際の作業イメージや画面操作はYouTubeの解説・実演動画の方が掴みやすいです。ここではFable 5単体の速報ではなく、<strong class="marker-strong">ループ設計、/goal、/loop、AIエージェントを育てる考え方</strong>に近い日本語動画を中心に並べます。</p>
             <div class="plain-note"><b>見るときの注意。</b> Claude CodeやCodex周辺は更新が速いので、動画内の料金、機能名、利用可否はその時点の情報として扱ってください。この記事では、動画を「概念と実務イメージを補う資料」として使います。</div>
             <div class="youtube-grid" aria-label="自律駆動・ループ設計関連のYouTube参照元">
               <div class="youtube-card">
@@ -1157,7 +1354,7 @@
 
           <section class="section" id="loop">
             <h2>自律エージェントの本体は「ループ」</h2>
-            <p>自律エージェントの中身は、魔法の一発回答ではありません。基本はとても地味で、「考えて、動いて、結果を見て、やり直す」の繰り返しです。この考え方は、Reasoning と Acting を組み合わせる ReAct の研究でも整理されています。<a class="cite" href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct paper</a></p>
+            <p>自律エージェントの中身は、魔法の一発回答ではありません。基本はとても地味で、<span class="marker">「考えて、動いて、結果を見て、やり直す」</span>の繰り返しです。この考え方は、Reasoning と Acting を組み合わせる ReAct の研究でも整理されています。<a class="cite" href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct paper</a></p>
             <div class="loop-steps" aria-label="自律ループ">
               <div class="step">Goal<span>ゴール</span></div>
               <div class="step">Think<span>考える</span></div>
@@ -1167,7 +1364,7 @@
               <div class="step">Retry<span>修正</span></div>
               <div class="step">Done<span>完了</span></div>
             </div>
-            <p>これまで多くの人は、AIに一回プロンプトを投げて終わりでした。これから重要になるのは、一回の答えをうまく書かせることだけではなく、<strong>AIが次の一歩を決め、結果を見て軌道修正する流れ</strong>を設計することです。人間でいえば「やってみて、確認して、直す」が仕事の基本です。AIにもその流れを持たせると、ただの回答役から作業パートナーに近づきます。</p>
+            <p>これまで多くの人は、AIに一回プロンプトを投げて終わりでした。これから重要になるのは、一回の答えをうまく書かせることだけではなく、<strong class="marker-strong">AIが次の一歩を決め、結果を見て軌道修正する流れ</strong>を設計することです。人間でいえば「やってみて、確認して、直す」が仕事の基本です。AIにもその流れを持たせると、ただの回答役から作業パートナーに近づきます。</p>
             <div class="x-preview-grid" aria-label="ループ設計の参照元">
               <div class="x-preview-card">
                 <a class="x-preview-link" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">https://x.com/addyosmani/status/2064127981161959567</a>
@@ -1182,7 +1379,7 @@
 
           <section class="section" id="components">
             <h2>動くエージェントに必要な5つの部品</h2>
-            <p>実務で使える自律エージェントには、少なくとも次の5つが必要です。難しい部品に見えますが、要するに「考える人」「手を動かす道具」「覚えておくメモ」「やり直す仕組み」「最後に確認する目」です。</p>
+            <p>実務で使える自律エージェントには、少なくとも次の5つが必要です。難しい部品に見えますが、要するに<span class="marker">「考える人」「手を動かす道具」「覚えておくメモ」「やり直す仕組み」「最後に確認する目」</span>です。</p>
             <div class="parts">
               <div class="part"><b>脳</b><br>次に何をするかを考えるLLM。</div>
               <div class="part"><b>手</b><br>検索、API、ファイル操作などのツール。</div>
@@ -1191,7 +1388,7 @@
               <div class="part"><b>検証</b><br>成果物が本当に条件を満たすか確認する品質ゲート。</div>
             </div>
             <p>OpenAIのAgents SDKでも、エージェントは指示、ツール、ハンドオフ、ガードレール、構造化出力などを組み合わせて設計するものとして説明されています。つまり「賢いモデルを呼ぶ」だけではなく、周辺の実行設計が重要です。<a class="cite" href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">OpenAI Agents SDK</a></p>
-            <div class="plain-note"><b>ここがよくある勘違いです。</b> モデルが賢ければ全部うまくいく、というより、賢いモデルが動きやすい環境を作るほど成果が安定します。優秀な人に仕事を頼むときでも、目的・資料・権限・締切・確認基準がないと困るのと同じです。</div>
+            <div class="plain-note"><b>ここがよくある勘違いです。</b> モデルが賢ければ全部うまくいく、というより、<span class="marker-strong">賢いモデルが動きやすい環境を作るほど成果が安定します。</span>優秀な人に仕事を頼むときでも、目的・資料・権限・締切・確認基準がないと困るのと同じです。</div>
             <div class="source-grid" aria-label="構成要素の参照元">
               <div class="x-preview-card">
                 <a class="x-preview-link" href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">https://x.com/RLanceMartin/status/2064397389189071163</a>
@@ -1206,7 +1403,7 @@
 
           <section class="section" id="frontier">
             <h2>いま起きている変化は「待つAI」から「任せるAI」へ</h2>
-            <p>現在のトレンドは、単にAIの返答が速くなることではありません。数分で終わる補助作業から、数時間単位で走る調査、コード修正、データ整理、レポート作成へと、AIが担える仕事の長さが伸びています。昔は画面の前で返答を待っていましたが、これからは「ここまでやっておいて」と任せる場面が増えていきます。</p>
+            <p>現在のトレンドは、単にAIの返答が速くなることではありません。数分で終わる補助作業から、<span class="marker">数時間単位で走る調査、コード修正、データ整理、レポート作成</span>へと、AIが担える仕事の長さが伸びています。昔は画面の前で返答を待っていましたが、これからは「ここまでやっておいて」と任せる場面が増えていきます。</p>
             <p>この流れを支えているのが、ツール連携の標準化です。たとえばAnthropicが公開したModel Context Protocolは、AIアプリケーションと外部データ・業務ツールをつなぐためのオープン標準として紹介されています。<a class="cite" href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">MCP announcement</a></p>
             <p>今後は、AIごとに個別連携を作るのではなく、AIが使える道具箱を標準化していく方向に進みます。これは「AI版のUSB規格」のような発想です。接続が標準化されるほど、エージェントは社内の資料、SaaS、コードベース、データベースに自然にアクセスしやすくなります。</p>
             <div class="x-preview-grid" aria-label="最新トレンドの参照元">
@@ -1281,7 +1478,7 @@
 
           <section class="section" id="fit-check">
             <h2>どの仕事を任せるべきか</h2>
-            <p>エージェント化は、何でも自動化すればよいわけではありません。むしろ最初は、<strong>繰り返しが多く、正解条件を確認でき、失敗してもすぐ止められる仕事</strong>から始めるのが安全です。逆に、判断基準が曖昧で、失敗時の影響が大きい仕事は、人間が主導した方がよいです。</p>
+            <p>エージェント化は、何でも自動化すればよいわけではありません。むしろ最初は、<strong class="marker-strong">繰り返しが多く、正解条件を確認でき、失敗してもすぐ止められる仕事</strong>から始めるのが安全です。逆に、判断基準が曖昧で、失敗時の影響が大きい仕事は、人間が主導した方がよいです。</p>
             <table class="decision-table">
               <thead>
                 <tr>
@@ -1323,8 +1520,8 @@
 
           <section class="section" id="practical-use">
             <h2>goal / loop をどう使えばいいか</h2>
-            <p>ここまでの話を実務に落とすなら、まず覚えるのは <strong>goal と loop の使い分け</strong> です。ざっくり言うと、<strong>goal は「何を達成したいか」を決めるため</strong>、<strong>loop は「達成するまで回す作業」を作るため</strong>に使います。</p>
-            <div class="plain-note"><b>順番は、goal が先です。</b> 目的がぼんやりしたまま loop を回すと、AIは一生懸命に動いてくれますが、向かう先がズレます。まず「何ができたら成功か」を決めて、そのあとに「どう繰り返して近づくか」を設計します。</div>
+            <p>ここまでの話を実務に落とすなら、まず覚えるのは <strong class="marker-strong">goal と loop の使い分け</strong> です。ざっくり言うと、<strong>goal は「何を達成したいか」を決めるため</strong>、<strong>loop は「達成するまで回す作業」を作るため</strong>に使います。</p>
+            <div class="plain-note"><b>順番は、goal が先です。</b> 目的がぼんやりしたまま loop を回すと、AIは一生懸命に動いてくれますが、向かう先がズレます。まず<span class="marker-strong">「何ができたら成功か」</span>を決めて、そのあとに「どう繰り返して近づくか」を設計します。</div>
 
             <div class="use-flow" aria-label="goal loop の使い方">
               <div class="use-step">
@@ -1352,7 +1549,7 @@ checks: 合格条件・確認項目
 stop: 最大回数・時間・人間確認の条件
 log: 判断理由・変更点・未解決事項の残し方</pre>
             </div>
-            <p>この6行を入れるだけで、AIへの依頼はかなり安定します。特に重要なのは <strong>checks</strong> と <strong>stop</strong> です。AIに任せるほど、「できたかどうか」と「どこで止めるか」を先に決めておく必要があります。</p>
+            <p>この6行を入れるだけで、AIへの依頼はかなり安定します。特に重要なのは <strong class="marker-strong">checks</strong> と <strong class="marker-strong">stop</strong> です。AIに任せるほど、「できたかどうか」と「どこで止めるか」を先に決めておく必要があります。</p>
 
             <h3>/goal で決めること</h3>
             <p>/goal は、AIに「まず目的を一緒に整理して」と頼む使い方です。特に、記事、LP、営業資料、リサーチ、コード修正のように、最初の方向づけが大事な仕事で効きます。</p>
@@ -1430,7 +1627,7 @@ log: 判断理由・変更点・未解決事項の残し方</pre>
 
             <div class="warning">
               <strong>最初から完全自動化を狙わない。</strong><br>
-              実用では「goalで目的を固める」「loopで改善する」「checkで止める」の3つを小さく回すだけでもかなり効果があります。慣れてきたら、調査、下書き、検証、投稿準備のように範囲を広げていくのが安全です。
+              実用では<span class="marker-strong">「goalで目的を固める」「loopで改善する」「checkで止める」</span>の3つを小さく回すだけでもかなり効果があります。慣れてきたら、調査、下書き、検証、投稿準備のように範囲を広げていくのが安全です。
             </div>
 
             <div class="x-preview-grid" aria-label="goal loop 実践の参照元">
@@ -1447,7 +1644,7 @@ log: 判断理由・変更点・未解決事項の残し方</pre>
 
           <section class="section" id="practice">
             <h2>では、今日からどう扱うべきか</h2>
-            <p>自律エージェントを使うときの心構えは、シンプルです。いきなり全自動化しない。まず小さく閉じたループから始め、合格基準と停止条件を置くことです。最初から「全部よろしく」ではなく、「ここまでやって、ここで止まって、ここを確認して」と渡すのがコツです。</p>
+            <p>自律エージェントを使うときの心構えは、シンプルです。いきなり全自動化しない。まず<span class="marker-strong">小さく閉じたループから始め、合格基準と停止条件を置く</span>ことです。最初から「全部よろしく」ではなく、「ここまでやって、ここで止まって、ここを確認して」と渡すのがコツです。</p>
             <div class="checklist">
               <div class="check"><div><strong>ゴールを書く</strong><br>何ができたら成功かを一文で定義する。</div></div>
               <div class="check"><div><strong>制約を書く</strong><br>触ってよい範囲、使ってよい情報、禁止事項を決める。</div></div>
