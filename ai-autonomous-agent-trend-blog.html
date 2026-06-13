@@ -504,21 +504,76 @@
       overflow-wrap: anywhere;
     }
 
-    .video-frame {
+    .youtube-thumb {
       position: relative;
+      display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
       border-radius: 6px;
       background: #0f1419;
+      color: #fff;
+      text-decoration: none;
     }
 
-    .video-frame iframe {
+    .youtube-thumb img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      border: 0;
+      object-fit: cover;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .youtube-thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.55));
+      pointer-events: none;
+    }
+
+    .youtube-thumb:hover img {
+      transform: scale(1.03);
+      opacity: 0.92;
+    }
+
+    .play-badge {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 68px;
+      height: 48px;
+      border-radius: 12px;
+      background: #ff0033;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+      transform: translate(-50%, -50%);
+    }
+
+    .play-badge::before {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      border-left: 17px solid #fff;
+    }
+
+    .thumb-caption {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      z-index: 1;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.45;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     }
 
     .compare {
@@ -932,7 +987,7 @@
           <strong>目次</strong>
           <a href="#summary">この記事の結論</a>
           <a href="#x-trends">X検索で見えた論点</a>
-          <a href="#youtube-fable">YouTubeで見るFable 5</a>
+          <a href="#youtube-fable">YouTubeで見る自律駆動</a>
           <a href="#three-stages">AI活用の3段階</a>
           <a href="#loop">自律エージェントのループ</a>
           <a href="#components">必要な5つの部品</a>
@@ -1002,41 +1057,49 @@
           </section>
 
           <section class="section" id="youtube-fable">
-            <h2>YouTubeで見るFable 5周辺の日本語情報</h2>
-            <p>Xは論点の立ち上がりを見るのに向いています。一方で、Fable 5のように実際の画面や使い方が気になるテーマは、YouTubeの解説・実演動画もかなり役に立ちます。ここでは、検索で確認した日本語動画の中から、この記事の理解を補強しやすいものを目的別に並べます。</p>
-            <div class="plain-note"><b>見るときの注意。</b> Fable 5まわりは情報の変化が速いので、動画内の料金、提供状況、利用可否、性能比較はその時点の情報として扱ってください。この記事では、特定の動画の主張をそのまま断定材料にするのではなく、使い方・注意点・実演の参考として配置しています。</div>
-            <div class="youtube-grid" aria-label="Fable 5関連のYouTube参照元">
+            <h2>YouTubeで見る自律駆動・ループ設計の日本語情報</h2>
+            <p>Xは論点の立ち上がりを見るのに向いています。一方で、実際の作業イメージや画面操作はYouTubeの解説・実演動画の方が掴みやすいです。ここではFable 5単体の速報ではなく、<strong>ループ設計、/goal、/loop、AIエージェントを育てる考え方</strong>に近い日本語動画を中心に並べます。</p>
+            <div class="plain-note"><b>見るときの注意。</b> Claude CodeやCodex周辺は更新が速いので、動画内の料金、機能名、利用可否はその時点の情報として扱ってください。この記事では、動画を「概念と実務イメージを補う資料」として使います。</div>
+            <div class="youtube-grid" aria-label="自律駆動・ループ設計関連のYouTube参照元">
               <div class="youtube-card">
-                <b>KEITO: プロンプトのコツとおすすめの使い方</b>
-                <p>公式ドキュメントからの読み解き、effort設定、ワークフロー設計など、実際にどう使うかを見たい人向け。</p>
-                <a class="youtube-link" href="https://www.youtube.com/watch?v=GegjeYn8zEg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=GegjeYn8zEg</a>
-                <div class="video-frame">
-                  <iframe src="https://www.youtube.com/embed/GegjeYn8zEg" title="Claude Fable 5のプロンプトのコツとおすすめの使い方" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+                <b>入江慎吾: Claude Code/Codexのループ設計</b>
+                <p>メルマガ下書き、PR自動処理、WWDC情報を踏まえた自律提案など、この記事の「ループ設計」を具体例で掴みたい人向け。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=diFfDj0dS0Q" target="_blank" rel="noopener">https://www.youtube.com/watch?v=diFfDj0dS0Q</a>
+                <a class="youtube-thumb" href="https://www.youtube.com/watch?v=diFfDj0dS0Q" target="_blank" rel="noopener" aria-label="YouTubeで開く: Claude Code/Codexの力を引き出すループ設計">
+                  <img src="https://i.ytimg.com/vi/diFfDj0dS0Q/hqdefault.jpg" alt="Claude Code/Codexの力を引き出すループ設計のYouTubeサムネイル" loading="lazy">
+                  <span class="play-badge" aria-hidden="true"></span>
+                  <span class="thumb-caption">YouTubeで開く</span>
+                </a>
               </div>
               <div class="youtube-card">
-                <b>ミナト: Claude Code Desktopで見るべき場所</b>
-                <p>New Session、Fork、モデル選択、基本操作など、Fable 5をClaude Codeで扱う前提の画面理解に向いています。</p>
-                <a class="youtube-link" href="https://www.youtube.com/watch?v=7EoQ9CGJm5k" target="_blank" rel="noopener">https://www.youtube.com/watch?v=7EoQ9CGJm5k</a>
-                <div class="video-frame">
-                  <iframe src="https://www.youtube.com/embed/7EoQ9CGJm5k" title="Claude Code Desktopで知らないと損する活用術" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+                <b>ヤスオのAI道場: Claude Code /loop の基本</b>
+                <p>/loopで定期実行、PR監視、デプロイ確認、エラー検知をどう考えるか。自律駆動の運用イメージを掴みたい人向け。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=MpDwoVqaFPs" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MpDwoVqaFPs</a>
+                <a class="youtube-thumb" href="https://www.youtube.com/watch?v=MpDwoVqaFPs" target="_blank" rel="noopener" aria-label="YouTubeで開く: Claude Code /loop がエンジニアの常識を変える">
+                  <img src="https://i.ytimg.com/vi/MpDwoVqaFPs/hqdefault.jpg" alt="Claude Code /loop がエンジニアの常識を変えるYouTubeサムネイル" loading="lazy">
+                  <span class="play-badge" aria-hidden="true"></span>
+                  <span class="thumb-caption">YouTubeで開く</span>
+                </a>
               </div>
               <div class="youtube-card">
-                <b>TBS CROSS DIG: Fable 5とAIネイティブな働き方</b>
-                <p>Fable 5単体の機能紹介だけでなく、Anthropic側の開発速度、安全性、コスト、働き方の変化を広めに捉えたい人向け。</p>
-                <a class="youtube-link" href="https://www.youtube.com/watch?v=t6Zmu-pBZlE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=t6Zmu-pBZlE</a>
-                <div class="video-frame">
-                  <iframe src="https://www.youtube.com/embed/t6Zmu-pBZlE" title="Claudeが自分で爆速開発 Fable 5" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+                <b>パソコン博士TAIKI: Claude Code完全入門</b>
+                <p>Claude Codeの基礎、スキル、サブエージェント、MCP、安全な使い方まで幅広く確認できる、土台作り向けの長尺解説。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=DkClEbyXyq4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DkClEbyXyq4</a>
+                <a class="youtube-thumb" href="https://www.youtube.com/watch?v=DkClEbyXyq4" target="_blank" rel="noopener" aria-label="YouTubeで開く: Claude Code完全入門マニュアル">
+                  <img src="https://i.ytimg.com/vi/DkClEbyXyq4/hqdefault.jpg" alt="Claude Code完全入門マニュアルのYouTubeサムネイル" loading="lazy">
+                  <span class="play-badge" aria-hidden="true"></span>
+                  <span class="thumb-caption">YouTubeで開く</span>
+                </a>
               </div>
               <div class="youtube-card">
-                <b>ウェブ職TV: 安全な使い方と炎上・謝罪まわり</b>
-                <p>性能だけでなく、安全面、使い方の注意、話題になっている論点を長尺で追いたい人向け。</p>
-                <a class="youtube-link" href="https://www.youtube.com/watch?v=LP2nn67pWQI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LP2nn67pWQI</a>
-                <div class="video-frame">
-                  <iframe src="https://www.youtube.com/embed/LP2nn67pWQI" title="Claude Fable 5炎上 Anthropicが謝罪 Fable 5のおすすめの使い方" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+                <b>【アイ】: 自分専用AIエージェントを育てる方法</b>
+                <p>AI育成、メモリ、運用サイクルなど、単発のプロンプトではなく「自分用のAIエージェントを育てる」観点を補強したい人向け。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=_cV3jcYVdcU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=_cV3jcYVdcU</a>
+                <a class="youtube-thumb" href="https://www.youtube.com/watch?v=_cV3jcYVdcU" target="_blank" rel="noopener" aria-label="YouTubeで開く: 自分専用のAIエージェントを育てる方法">
+                  <img src="https://i.ytimg.com/vi/_cV3jcYVdcU/hqdefault.jpg" alt="自分専用のAIエージェントを育てる方法のYouTubeサムネイル" loading="lazy">
+                  <span class="play-badge" aria-hidden="true"></span>
+                  <span class="thumb-caption">YouTubeで開く</span>
+                </a>
               </div>
             </div>
           </section>
@@ -1415,10 +1478,10 @@ log: 判断理由・変更点・未解決事項の残し方</pre>
               <li><b>Lance Martin：Designing loops</b><a href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">https://x.com/RLanceMartin/status/2064397389189071163</a></li>
               <li><b>ATSUSHI AI：「待つ」から「任せて寝る」へ</b><a href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">https://x.com/ATSUSHI_AI_0/status/2065263742062129410</a></li>
               <li><b>Claude Code Studio：Memory Files速報</b><a href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">https://x.com/ClaudeCode_love/status/2058840543820689577</a></li>
-              <li><b>KEITO: Claude Fable 5のプロンプトのコツ</b><a href="https://www.youtube.com/watch?v=GegjeYn8zEg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=GegjeYn8zEg</a></li>
-              <li><b>ミナト: Claude Code Desktopで見るべき場所</b><a href="https://www.youtube.com/watch?v=7EoQ9CGJm5k" target="_blank" rel="noopener">https://www.youtube.com/watch?v=7EoQ9CGJm5k</a></li>
-              <li><b>TBS CROSS DIG: Fable 5とAIネイティブな働き方</b><a href="https://www.youtube.com/watch?v=t6Zmu-pBZlE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=t6Zmu-pBZlE</a></li>
-              <li><b>ウェブ職TV: Claude Fable 5炎上 / 安全な使い方</b><a href="https://www.youtube.com/watch?v=LP2nn67pWQI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LP2nn67pWQI</a></li>
+              <li><b>入江慎吾: Claude Code/Codexのループ設計</b><a href="https://www.youtube.com/watch?v=diFfDj0dS0Q" target="_blank" rel="noopener">https://www.youtube.com/watch?v=diFfDj0dS0Q</a></li>
+              <li><b>ヤスオのAI道場: Claude Code /loop の基本</b><a href="https://www.youtube.com/watch?v=MpDwoVqaFPs" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MpDwoVqaFPs</a></li>
+              <li><b>パソコン博士TAIKI: Claude Code完全入門</b><a href="https://www.youtube.com/watch?v=DkClEbyXyq4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=DkClEbyXyq4</a></li>
+              <li><b>【アイ】: 自分専用AIエージェントを育てる方法</b><a href="https://www.youtube.com/watch?v=_cV3jcYVdcU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=_cV3jcYVdcU</a></li>
               <li><b>古野光太朗：loop設計の日本語整理</b><a href="https://x.com/koutarou_furuno/status/2065034757789073762" target="_blank" rel="noopener">https://x.com/koutarou_furuno/status/2065034757789073762</a></li>
               <li><b>キスケ：実践セットアップ</b><a href="https://x.com/ai_kisuke/status/2065195159244112318" target="_blank" rel="noopener">https://x.com/ai_kisuke/status/2065195159244112318</a></li>
               <li><b>AI Edge：/loop プレイブック</b><a href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">https://x.com/aiedge_/status/2065011214783262846</a></li>
