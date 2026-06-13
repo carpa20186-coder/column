@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>プロンプトから自律駆動へ。AIエージェント時代のトレンドと、これからの使い方</title>
-  <meta name="description" content="AIの使い方は、プロンプトで操作する段階から、ループを設計して自律的に動かす段階へ移りつつあります。AIエージェント、ReActループ、MCP、検証設計、コストの壁をやさしく整理しました。">
+  <meta name="description" content="AIの使い方は、プロンプトで操作する段階から、ループを設計して自律的に動かす段階へ移りつつあります。AIエージェント、ReActループ、MCP、X上の最新議論、検証設計、コストの壁、実務での使い方をやさしく整理しました。">
   <style>
     :root {
       --ink: #172026;
@@ -497,6 +497,27 @@
       font-size: 18px;
     }
 
+    .trend-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .trend-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdfc;
+    }
+
+    .trend-card b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green-dark);
+      font-size: 17px;
+    }
+
     .loop-steps {
       display: grid;
       grid-template-columns: repeat(7, minmax(92px, 1fr));
@@ -633,6 +654,42 @@
       margin-top: 0;
     }
 
+    .decision-table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .decision-table th,
+    .decision-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .decision-table th {
+      background: #eef8f7;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .decision-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .decision-table td:first-child {
+      width: 26%;
+      font-weight: 850;
+      color: #22333b;
+    }
+
     .quote {
       margin: 24px 0;
       padding: 22px;
@@ -722,7 +779,7 @@
         min-height: 360px;
       }
 
-      .takeaways, .compare, .parts, .use-flow, .example-list, .x-preview-grid {
+      .takeaways, .compare, .parts, .use-flow, .example-list, .trend-grid, .x-preview-grid {
         grid-template-columns: 1fr;
       }
 
@@ -758,6 +815,11 @@
 
       .loop-steps {
         grid-template-columns: 1fr;
+      }
+
+      .decision-table {
+        display: block;
+        overflow-x: auto;
       }
 
       .cite {
@@ -814,6 +876,7 @@
         <nav class="toc" aria-label="目次">
           <strong>目次</strong>
           <a href="#summary">この記事の結論</a>
+          <a href="#x-trends">X検索で見えた論点</a>
           <a href="#three-stages">AI活用の3段階</a>
           <a href="#loop">自律エージェントのループ</a>
           <a href="#components">必要な5つの部品</a>
@@ -821,6 +884,7 @@
           <a href="#failure">失敗する理由</a>
           <a href="#cost">コストと現実</a>
           <a href="#forecast">2〜3年の予測</a>
+          <a href="#fit-check">任せる仕事の見極め</a>
           <a href="#practical-use">goal / loop の使い方</a>
           <a href="#practice">今日からできること</a>
           <a href="#sources">参照元</a>
@@ -844,6 +908,39 @@
               <div class="x-preview-card">
                 <a class="x-preview-link" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a>
                 <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/sairahul1/status/2064277888216555684"></a></blockquote>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="x-trends">
+            <h2>X検索で見えた、いまの論点</h2>
+            <p>今回、X上でも「Loop Engineering」「long-running agents」「/goal / /loop」などで検索し、直近で何が話題になっているかを確認しました。細かいツール名やモデル名は流行り廃りがありますが、共通していたのは <strong>AIに一回お願いする話から、AIが何度も考え直す作業設計の話へ移っている</strong> という点です。</p>
+            <div class="trend-grid">
+              <div class="trend-card">
+                <b>1. プロンプトではなくループを設計する</b>
+                <p>Addy OsmaniやRahulの投稿では、「人間が毎回プロンプトを書く」のではなく、AI自身が次のプロンプトや作業を進めるループを作る発想が中心になっています。</p>
+              </div>
+              <div class="trend-card">
+                <b>2. 長時間動くエージェントが現実味を帯びている</b>
+                <p>数分の補助作業ではなく、調査・コード修正・検証を長く回すエージェント運用が話題になっています。ただし、長く動かすほどログ、停止条件、通知が重要になります。</p>
+              </div>
+              <div class="trend-card">
+                <b>3. 作業役と確認役を分ける流れが強い</b>
+                <p>Cursor周辺の recursive agent systems の話題では、うまくいかない時に人へ通知したり、別の確認ループを持たせたりする設計が出てきています。</p>
+              </div>
+              <div class="trend-card">
+                <b>4. 日本語圏でも実務翻訳が始まっている</b>
+                <p>日本語の投稿では、「調査、批判、改善、実行、検証」のように、現場で使える言葉へ置き換える動きが見えます。この記事もその延長として、実務で迷わない形に整理します。</p>
+              </div>
+            </div>
+            <div class="x-preview-grid" aria-label="X検索で確認した追加参照元">
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/omarsar0/status/2065491829760651328" target="_blank" rel="noopener">https://x.com/omarsar0/status/2065491829760651328</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/omarsar0/status/2065491829760651328"></a></blockquote>
+              </div>
+              <div class="x-preview-card">
+                <a class="x-preview-link" href="https://x.com/leerob/status/2065469795529588940" target="_blank" rel="noopener">https://x.com/leerob/status/2065469795529588940</a>
+                <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/leerob/status/2065469795529588940"></a></blockquote>
               </div>
             </div>
           </section>
@@ -1005,6 +1102,48 @@
             </div>
           </section>
 
+          <section class="section" id="fit-check">
+            <h2>どの仕事を任せるべきか</h2>
+            <p>エージェント化は、何でも自動化すればよいわけではありません。むしろ最初は、<strong>繰り返しが多く、正解条件を確認でき、失敗してもすぐ止められる仕事</strong>から始めるのが安全です。逆に、判断基準が曖昧で、失敗時の影響が大きい仕事は、人間が主導した方がよいです。</p>
+            <table class="decision-table">
+              <thead>
+                <tr>
+                  <th>見るポイント</th>
+                  <th>任せやすい仕事</th>
+                  <th>まだ慎重に扱う仕事</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>成功条件</td>
+                  <td>チェック項目や数値で合否を見られる。例: 誤字チェック、リンク確認、表の整形、テスト通過。</td>
+                  <td>「なんとなく良い」「空気を読む」など、評価が人によって大きく変わる。</td>
+                </tr>
+                <tr>
+                  <td>作業範囲</td>
+                  <td>対象フォルダ、対象シート、対象記事など、触る範囲を狭く切れる。</td>
+                  <td>会社全体、顧客情報全体、本番環境など、影響範囲が広い。</td>
+                </tr>
+                <tr>
+                  <td>やり直し</td>
+                  <td>ログや差分が残り、人間が戻せる。失敗しても損失が小さい。</td>
+                  <td>送信、削除、課金、契約、顧客対応など、取り消しにくい。</td>
+                </tr>
+                <tr>
+                  <td>情報源</td>
+                  <td>参照してよい資料やURLが明確。AIが勝手に探す範囲を絞れる。</td>
+                  <td>機密情報や未整理の資料が多く、何を見てよいか決めづらい。</td>
+                </tr>
+                <tr>
+                  <td>停止条件</td>
+                  <td>最大ループ回数、時間、コスト、人間確認の条件を置ける。</td>
+                  <td>完了の定義がなく、どこまでやれば終わりか決められない。</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="plain-note"><b>最初のおすすめ。</b> 記事の改善、広告案の比較、スプレッドシートの整形、コードの小さなバグ修正、定型レポート作成あたりは始めやすいです。いきなり「売上改善を全部やって」ではなく、「このレポートを3回改善して、根拠と未確認点を出して」で十分です。</div>
+          </section>
+
           <section class="section" id="practical-use">
             <h2>goal / loop をどう使えばいいか</h2>
             <p>ここまでの話を実務に落とすなら、まず覚えるのは <strong>goal と loop の使い分け</strong> です。ざっくり言うと、<strong>goal は「何を達成したいか」を決めるため</strong>、<strong>loop は「達成するまで回す作業」を作るため</strong>に使います。</p>
@@ -1024,6 +1163,19 @@
                 <p>最後に、人間または別AIで確認します。事実、抜け漏れ、読みやすさ、目的とのズレを見ます。ここを飛ばすと一番事故りやすいです。</p>
               </div>
             </div>
+
+            <h3>最小ループは6行で設計する</h3>
+            <p>難しい自律エージェントを最初から作る必要はありません。実務では、次の6行が埋まれば小さなループとして十分に使えます。</p>
+            <div class="template-box">
+              <b>最小ループ設計</b>
+              <pre>目的: 何を達成するか
+inputs: 使ってよい資料・URL・ファイル
+actions: AIが実行してよい作業
+checks: 合格条件・確認項目
+stop: 最大回数・時間・人間確認の条件
+log: 判断理由・変更点・未解決事項の残し方</pre>
+            </div>
+            <p>この6行を入れるだけで、AIへの依頼はかなり安定します。特に重要なのは <strong>checks</strong> と <strong>stop</strong> です。AIに任せるほど、「できたかどうか」と「どこで止めるか」を先に決めておく必要があります。</p>
 
             <h3>/goal で決めること</h3>
             <p>/goal は、AIに「まず目的を一緒に整理して」と頼む使い方です。特に、記事、LP、営業資料、リサーチ、コード修正のように、最初の方向づけが大事な仕事で効きます。</p>
@@ -1162,6 +1314,8 @@
               <li><b>Addy Osmani：Loop Engineering</b><a href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">https://x.com/addyosmani/status/2064127981161959567</a></li>
               <li><b>Rahul：Loops</b><a href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a></li>
               <li><b>Rahul：How To Build AI Agents in 2026</b><a href="https://x.com/sairahul1/status/2064988918630736353" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064988918630736353</a></li>
+              <li><b>elvis：autonomous long-running coding agents</b><a href="https://x.com/omarsar0/status/2065491829760651328" target="_blank" rel="noopener">https://x.com/omarsar0/status/2065491829760651328</a></li>
+              <li><b>Lee Robinson：Building recursive agent systems</b><a href="https://x.com/leerob/status/2065469795529588940" target="_blank" rel="noopener">https://x.com/leerob/status/2065469795529588940</a></li>
               <li><b>Lance Martin：Designing loops</b><a href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">https://x.com/RLanceMartin/status/2064397389189071163</a></li>
               <li><b>ATSUSHI AI：「待つ」から「任せて寝る」へ</b><a href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">https://x.com/ATSUSHI_AI_0/status/2065263742062129410</a></li>
               <li><b>Claude Code Studio：Memory Files速報</b><a href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">https://x.com/ClaudeCode_love/status/2058840543820689577</a></li>
