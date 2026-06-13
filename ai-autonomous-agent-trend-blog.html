@@ -466,6 +466,61 @@
       min-width: 0 !important;
     }
 
+    .youtube-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 22px 0 6px;
+    }
+
+    .youtube-card {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid #d6e2e6;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(24, 43, 54, 0.06);
+    }
+
+    .youtube-card b {
+      display: block;
+      margin: 0 0 6px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .youtube-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .youtube-link {
+      display: block;
+      margin: 0 0 10px;
+      color: #c4302b;
+      font-weight: 750;
+      overflow-wrap: anywhere;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #0f1419;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     .compare {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -779,7 +834,7 @@
         min-height: 360px;
       }
 
-      .takeaways, .compare, .parts, .use-flow, .example-list, .trend-grid, .x-preview-grid {
+      .takeaways, .compare, .parts, .use-flow, .example-list, .trend-grid, .x-preview-grid, .youtube-grid {
         grid-template-columns: 1fr;
       }
 
@@ -847,7 +902,7 @@
           <p class="lead">AIの使い方は「うまく命令する」段階から、「AIが考え、動き、確認し、やり直す仕組みを作る」段階へ移りつつあります。難しく聞こえますが、要するに“AIに毎回お願いする”から“AIが迷わず進める流れを用意する”へ変わっている、という話です。</p>
           <div class="meta">
             <span class="pill">公開用ブログ記事</span>
-            <span class="pill">読了目安 12分</span>
+            <span class="pill">読了目安 15分</span>
             <span class="pill">更新日 2026.06.13</span>
           </div>
         </div>
@@ -877,6 +932,7 @@
           <strong>目次</strong>
           <a href="#summary">この記事の結論</a>
           <a href="#x-trends">X検索で見えた論点</a>
+          <a href="#youtube-fable">YouTubeで見るFable 5</a>
           <a href="#three-stages">AI活用の3段階</a>
           <a href="#loop">自律エージェントのループ</a>
           <a href="#components">必要な5つの部品</a>
@@ -941,6 +997,46 @@
               <div class="x-preview-card">
                 <a class="x-preview-link" href="https://x.com/leerob/status/2065469795529588940" target="_blank" rel="noopener">https://x.com/leerob/status/2065469795529588940</a>
                 <blockquote class="twitter-tweet" data-dnt="true"><a href="https://x.com/leerob/status/2065469795529588940"></a></blockquote>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="youtube-fable">
+            <h2>YouTubeで見るFable 5周辺の日本語情報</h2>
+            <p>Xは論点の立ち上がりを見るのに向いています。一方で、Fable 5のように実際の画面や使い方が気になるテーマは、YouTubeの解説・実演動画もかなり役に立ちます。ここでは、検索で確認した日本語動画の中から、この記事の理解を補強しやすいものを目的別に並べます。</p>
+            <div class="plain-note"><b>見るときの注意。</b> Fable 5まわりは情報の変化が速いので、動画内の料金、提供状況、利用可否、性能比較はその時点の情報として扱ってください。この記事では、特定の動画の主張をそのまま断定材料にするのではなく、使い方・注意点・実演の参考として配置しています。</div>
+            <div class="youtube-grid" aria-label="Fable 5関連のYouTube参照元">
+              <div class="youtube-card">
+                <b>KEITO: プロンプトのコツとおすすめの使い方</b>
+                <p>公式ドキュメントからの読み解き、effort設定、ワークフロー設計など、実際にどう使うかを見たい人向け。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=GegjeYn8zEg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=GegjeYn8zEg</a>
+                <div class="video-frame">
+                  <iframe src="https://www.youtube.com/embed/GegjeYn8zEg" title="Claude Fable 5のプロンプトのコツとおすすめの使い方" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="youtube-card">
+                <b>ミナト: Claude Code Desktopで見るべき場所</b>
+                <p>New Session、Fork、モデル選択、基本操作など、Fable 5をClaude Codeで扱う前提の画面理解に向いています。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=7EoQ9CGJm5k" target="_blank" rel="noopener">https://www.youtube.com/watch?v=7EoQ9CGJm5k</a>
+                <div class="video-frame">
+                  <iframe src="https://www.youtube.com/embed/7EoQ9CGJm5k" title="Claude Code Desktopで知らないと損する活用術" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="youtube-card">
+                <b>TBS CROSS DIG: Fable 5とAIネイティブな働き方</b>
+                <p>Fable 5単体の機能紹介だけでなく、Anthropic側の開発速度、安全性、コスト、働き方の変化を広めに捉えたい人向け。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=t6Zmu-pBZlE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=t6Zmu-pBZlE</a>
+                <div class="video-frame">
+                  <iframe src="https://www.youtube.com/embed/t6Zmu-pBZlE" title="Claudeが自分で爆速開発 Fable 5" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="youtube-card">
+                <b>ウェブ職TV: 安全な使い方と炎上・謝罪まわり</b>
+                <p>性能だけでなく、安全面、使い方の注意、話題になっている論点を長尺で追いたい人向け。</p>
+                <a class="youtube-link" href="https://www.youtube.com/watch?v=LP2nn67pWQI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LP2nn67pWQI</a>
+                <div class="video-frame">
+                  <iframe src="https://www.youtube.com/embed/LP2nn67pWQI" title="Claude Fable 5炎上 Anthropicが謝罪 Fable 5のおすすめの使い方" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
               </div>
             </div>
           </section>
@@ -1319,6 +1415,10 @@ log: 判断理由・変更点・未解決事項の残し方</pre>
               <li><b>Lance Martin：Designing loops</b><a href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">https://x.com/RLanceMartin/status/2064397389189071163</a></li>
               <li><b>ATSUSHI AI：「待つ」から「任せて寝る」へ</b><a href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">https://x.com/ATSUSHI_AI_0/status/2065263742062129410</a></li>
               <li><b>Claude Code Studio：Memory Files速報</b><a href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">https://x.com/ClaudeCode_love/status/2058840543820689577</a></li>
+              <li><b>KEITO: Claude Fable 5のプロンプトのコツ</b><a href="https://www.youtube.com/watch?v=GegjeYn8zEg" target="_blank" rel="noopener">https://www.youtube.com/watch?v=GegjeYn8zEg</a></li>
+              <li><b>ミナト: Claude Code Desktopで見るべき場所</b><a href="https://www.youtube.com/watch?v=7EoQ9CGJm5k" target="_blank" rel="noopener">https://www.youtube.com/watch?v=7EoQ9CGJm5k</a></li>
+              <li><b>TBS CROSS DIG: Fable 5とAIネイティブな働き方</b><a href="https://www.youtube.com/watch?v=t6Zmu-pBZlE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=t6Zmu-pBZlE</a></li>
+              <li><b>ウェブ職TV: Claude Fable 5炎上 / 安全な使い方</b><a href="https://www.youtube.com/watch?v=LP2nn67pWQI" target="_blank" rel="noopener">https://www.youtube.com/watch?v=LP2nn67pWQI</a></li>
               <li><b>古野光太朗：loop設計の日本語整理</b><a href="https://x.com/koutarou_furuno/status/2065034757789073762" target="_blank" rel="noopener">https://x.com/koutarou_furuno/status/2065034757789073762</a></li>
               <li><b>キスケ：実践セットアップ</b><a href="https://x.com/ai_kisuke/status/2065195159244112318" target="_blank" rel="noopener">https://x.com/ai_kisuke/status/2065195159244112318</a></li>
               <li><b>AI Edge：/loop プレイブック</b><a href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">https://x.com/aiedge_/status/2065011214783262846</a></li>
