@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プロンプトから自律駆動へ。AIエージェント時代のトレンドと、これからの使い方</title>
+  <meta name="description" content="AIの使い方は、プロンプトで操作する段階から、ループを設計して自律的に動かす段階へ移りつつあります。AIエージェント、ReActループ、MCP、検証設計、コストの壁をやさしく整理しました。">
+  <style>
+    :root {
+      --ink: #172026;
+      --muted: #5c6a73;
+      --subtle: #7a8790;
+      --line: #dbe4e8;
+      --paper: #fbfcfb;
+      --panel: #ffffff;
+      --green: #16826d;
+      --green-dark: #0c5f52;
+      --teal: #23a6a6;
+      --blue: #315fbd;
+      --amber: #d89119;
+      --rose: #cf5265;
+      --code: #24313a;
+      --shadow: 0 18px 50px rgba(24, 43, 54, 0.12);
+      --radius: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(35, 166, 166, 0.14), transparent 30rem),
+        linear-gradient(180deg, #f3f8f7 0%, var(--paper) 34rem);
+      line-height: 1.85;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: var(--green-dark);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+
+    img, svg {
+      max-width: 100%;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      padding: 64px 24px 42px;
+      border-bottom: 1px solid rgba(12, 95, 82, 0.14);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -44px 46%;
+      height: 150px;
+      background: linear-gradient(90deg, transparent, rgba(22, 130, 109, 0.16), transparent);
+      transform: skewY(-4deg);
+      pointer-events: none;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin: 0 0 18px;
+      color: var(--green-dark);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 18px 0 0 var(--teal), 36px 0 0 var(--amber);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: #34444f;
+      font-size: clamp(17px, 2vw, 21px);
+      font-weight: 650;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 5px 12px;
+      border: 1px solid rgba(22, 130, 109, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 420px;
+      border: 1px solid rgba(22, 130, 109, 0.18);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .flow-board {
+      position: absolute;
+      inset: 28px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 18px;
+    }
+
+    .board-top {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .board-top span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .loop-visual {
+      position: relative;
+      min-height: 250px;
+    }
+
+    .loop-node {
+      position: absolute;
+      width: 134px;
+      min-height: 74px;
+      padding: 14px;
+      border: 1px solid rgba(23, 32, 38, 0.14);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(24, 43, 54, 0.1);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .loop-node small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .n1 { left: 0; top: 74px; border-left: 6px solid var(--green); }
+    .n2 { left: 174px; top: 0; border-left: 6px solid var(--blue); }
+    .n3 { right: 0; top: 74px; border-left: 6px solid var(--teal); }
+    .n4 { left: 174px; bottom: 0; border-left: 6px solid var(--amber); }
+
+    .loop-ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 190px;
+      height: 190px;
+      border: 18px solid rgba(22, 130, 109, 0.14);
+      border-top-color: rgba(49, 95, 189, 0.35);
+      border-right-color: rgba(35, 166, 166, 0.35);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-18deg);
+    }
+
+    .board-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .mini {
+      padding: 12px;
+      border-radius: var(--radius);
+      background: #eef7f5;
+      color: var(--green-dark);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    main {
+      padding: 40px 0 76px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 30px rgba(24, 43, 54, 0.08);
+    }
+
+    .toc strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 0;
+      border-top: 1px solid #edf2f3;
+      color: #33444c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .article {
+      min-width: 0;
+    }
+
+    .notice, .section, .source-box {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 12px 34px rgba(24, 43, 54, 0.07);
+    }
+
+    .notice {
+      padding: 22px;
+      margin-bottom: 26px;
+      border-left: 6px solid var(--green);
+    }
+
+    .notice h2, .section h2 {
+      margin: 0 0 12px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+
+    .notice p, .section p {
+      margin: 0 0 18px;
+    }
+
+    .notice p:last-child, .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .takeaways {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 22px 0 0;
+    }
+
+    .takeaway {
+      padding: 16px;
+      border-radius: var(--radius);
+      background: #f1f8f7;
+      border: 1px solid rgba(22, 130, 109, 0.14);
+    }
+
+    .takeaway b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green-dark);
+    }
+
+    .section {
+      padding: clamp(22px, 4vw, 38px);
+      margin: 26px 0;
+    }
+
+    .section h2 {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section h3 {
+      margin: 26px 0 8px;
+      font-size: 21px;
+      line-height: 1.45;
+    }
+
+    .section ul, .section ol {
+      padding-left: 1.25em;
+      margin: 14px 0 0;
+    }
+
+    .section li {
+      margin: 8px 0;
+    }
+
+    .cite {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: #ecf6f4;
+      color: var(--green-dark);
+      font-size: 0.78em;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0 4px;
+    }
+
+    .source-card {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 14px;
+      min-height: 118px;
+      padding: 12px;
+      border: 1px solid #dce7ea;
+      border-radius: var(--radius);
+      background: #fbfdfc;
+      color: var(--ink);
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(24, 43, 54, 0.06);
+    }
+
+    .source-card:hover {
+      border-color: rgba(22, 130, 109, 0.35);
+      transform: translateY(-1px);
+      transition: 0.16s ease;
+    }
+
+    .source-thumb {
+      min-height: 94px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0;
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.08)),
+        linear-gradient(135deg, #15202b, #2b3d4f);
+    }
+
+    .source-thumb.official {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(0, 0, 0, 0.1)),
+        linear-gradient(135deg, var(--green-dark), var(--teal));
+    }
+
+    .source-card small {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--green-dark);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .source-card b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .source-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .phase {
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fbfdfc;
+    }
+
+    .phase .num {
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .phase h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .loop-steps {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(92px, 1fr));
+      gap: 8px;
+      margin: 22px 0;
+    }
+
+    .step {
+      min-height: 76px;
+      padding: 12px 8px;
+      border-radius: var(--radius);
+      background: #f7faf9;
+      border: 1px solid var(--line);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .step span {
+      display: block;
+      color: var(--subtle);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .parts {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .part {
+      padding: 16px;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .part b {
+      color: var(--green-dark);
+    }
+
+    .warning {
+      padding: 18px;
+      margin: 20px 0 0;
+      border-radius: var(--radius);
+      background: #fff7e8;
+      border: 1px solid rgba(216, 145, 25, 0.35);
+    }
+
+    .plain-note {
+      padding: 18px;
+      margin: 20px 0;
+      border-radius: var(--radius);
+      background: #eef8f7;
+      border: 1px solid rgba(22, 130, 109, 0.22);
+      color: #243941;
+    }
+
+    .plain-note b {
+      color: var(--green-dark);
+    }
+
+    .use-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .use-step {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdfc;
+    }
+
+    .use-step strong {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 2px 10px;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      background: #e9f5f2;
+      color: var(--green-dark);
+      font-size: 13px;
+    }
+
+    .template-box {
+      margin: 18px 0;
+      border: 1px solid #d7e4e7;
+      border-radius: var(--radius);
+      background: #101820;
+      color: #eef8f7;
+      overflow: hidden;
+    }
+
+    .template-box b {
+      display: block;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      color: #9ce3d4;
+      font-size: 13px;
+    }
+
+    .template-box pre {
+      margin: 0;
+      padding: 16px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .example-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .example-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .example-card h3 {
+      margin-top: 0;
+    }
+
+    .quote {
+      margin: 24px 0;
+      padding: 22px;
+      border-left: 6px solid var(--green);
+      background: #f2f8f6;
+      color: #23343c;
+      font-size: 20px;
+      font-weight: 850;
+      line-height: 1.75;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdfc;
+    }
+
+    .check::before {
+      content: "✓";
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .source-box {
+      padding: 28px;
+      margin-top: 30px;
+    }
+
+    .source-box h2 {
+      margin: 0 0 16px;
+      font-size: 26px;
+    }
+
+    .sources {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .sources li {
+      padding: 13px 14px;
+      border: 1px solid #edf2f3;
+      border-radius: var(--radius);
+      background: #fbfdfc;
+    }
+
+    .sources b {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--green-dark);
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid, .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+
+      .hero-card {
+        min-height: 360px;
+      }
+
+      .takeaways, .compare, .parts, .use-flow, .example-list {
+        grid-template-columns: 1fr;
+      }
+
+      .source-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .hero-card {
+        display: none;
+      }
+
+      .section, .notice, .source-box {
+        padding: 20px;
+      }
+
+      .checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .cite {
+        white-space: normal;
+      }
+
+      .source-card {
+        grid-template-columns: 74px minmax(0, 1fr);
+      }
+
+      .source-thumb {
+        min-height: 78px;
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">AI Agents / Loop Design / 2026 Trend</p>
+          <h1>プロンプトから<br>「自律駆動」へ</h1>
+          <p class="lead">AIの使い方は「うまく命令する」段階から、「AIが考え、動き、確認し、やり直す仕組みを作る」段階へ移りつつあります。難しく聞こえますが、要するに“AIに毎回お願いする”から“AIが迷わず進める流れを用意する”へ変わっている、という話です。</p>
+          <div class="meta">
+            <span class="pill">公開用ブログ記事</span>
+            <span class="pill">読了目安 12分</span>
+            <span class="pill">更新日 2026.06.13</span>
+          </div>
+        </div>
+        <div class="hero-card" aria-hidden="true">
+          <div class="flow-board">
+            <div class="board-top"><span></span><span></span><span></span> Autonomous loop model</div>
+            <div class="loop-visual">
+              <div class="loop-ring"></div>
+              <div class="loop-node n1">Goal<small>成果と制約を渡す</small></div>
+              <div class="loop-node n2">Think<small>次の一手を決める</small></div>
+              <div class="loop-node n3">Act<small>ツールで実行する</small></div>
+              <div class="loop-node n4">Verify<small>結果を見て直す</small></div>
+            </div>
+            <div class="board-bottom">
+              <div class="mini">Tools</div>
+              <div class="mini">Memory</div>
+              <div class="mini">Guardrails</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap layout">
+        <nav class="toc" aria-label="目次">
+          <strong>目次</strong>
+          <a href="#summary">この記事の結論</a>
+          <a href="#three-stages">AI活用の3段階</a>
+          <a href="#loop">自律エージェントのループ</a>
+          <a href="#components">必要な5つの部品</a>
+          <a href="#frontier">いま起きている変化</a>
+          <a href="#failure">失敗する理由</a>
+          <a href="#cost">コストと現実</a>
+          <a href="#forecast">2〜3年の予測</a>
+          <a href="#practical-use">goal / loop の使い方</a>
+          <a href="#practice">今日からできること</a>
+          <a href="#sources">参照元</a>
+        </nav>
+
+        <article class="article">
+          <section class="notice" id="summary">
+            <h2>この記事の結論</h2>
+            <p>この1〜2年で、AIの中心は「チャットで答えをもらう」使い方から、「ゴールを渡し、AIがツールを使いながら作業を進める」使い方へ移っています。ポイントは、プロンプトを一発でうまく書くことだけではありません。<strong>AIがどう考え、どう動き、どう失敗に気づき、いつ止まるか</strong>まで含めて、仕事の流れを作ることです。X上でも、Addy OsmaniやRahulなどが「長時間動くエージェント」「ループ設計」を繰り返し論点化しており、この記事ではその流れを公式情報とあわせて整理します。</p>
+            <div class="plain-note"><b>先にざっくり言うと。</b> これから大事になるのは「AIに何と頼むか」だけではなく、「AIが途中で迷わないように、道順・道具・確認ポイントを用意すること」です。料理でいえば、レシピを聞く段階から、材料確認、調理、味見、作り直しまで任せる段階に近づいています。</div>
+            <div class="takeaways">
+              <div class="takeaway"><b>1. 指示から設計へ</b>人間は細かい操作係ではなく、ゴール・制約・合格基準を決める側へ移る。</div>
+              <div class="takeaway"><b>2. ループが本体</b>考える、動く、観察する、直す。この循環がエージェントの実用性を決める。</div>
+              <div class="takeaway"><b>3. 検証は手放さない</b>自律性を上げるほど、品質ゲートと停止条件が重要になる。</div>
+            </div>
+            <div class="source-grid" aria-label="本文参照元">
+              <a class="source-card" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Trend source</small><b>Addy Osmani：長時間稼働エージェントの潮流</b><span>https://x.com/addyosmani/status/2061696286840279057</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Loop source</small><b>Rahul：Loops / AI Engineer向けの整理</b><span>https://x.com/sairahul1/status/2064277888216555684</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section" id="three-stages">
+            <h2>AI活用は3段階で進んでいる</h2>
+            <p>AIエージェントの話は専門用語が多く、いきなり難しく見えます。けれど、実務の視点では3段階に分けるとかなり見通しがよくなります。ここでは「ケーキ作りを手伝ってもらう」くらいの感覚で捉えてみます。</p>
+            <div class="compare">
+              <div class="phase">
+                <span class="num">1</span>
+                <h3>チャットボット</h3>
+                <p>「いちごケーキの作り方を教えて」と聞くと、レシピを教えてくれるAIです。説明は上手ですが、卵を買ったり、オーブンを温めたりはしてくれません。</p>
+              </div>
+              <div class="phase">
+                <span class="num">2</span>
+                <h3>ツールを持つAI</h3>
+                <p>検索、コード実行、ファイル操作、APIなどを使えるAIです。冷蔵庫を確認し、足りない材料を調べ、必要な作業を実際に進められる状態です。</p>
+              </div>
+              <div class="phase">
+                <span class="num">3</span>
+                <h3>自律型AI</h3>
+                <p>「土曜の誕生日会に合うケーキを用意して」とゴールを渡すと、必要なことを分解し、実行し、途中で確認しながら進めるAIです。人間は細かい手順よりも、目的と合格基準を渡す役割になります。</p>
+              </div>
+            </div>
+            <p>Anthropicは、エージェントを「環境からフィードバックを受け取りながら、ツールを使って自分で進め方を決めるシステム」として整理しています。複雑なフレームワークより、シンプルで組み合わせやすい設計が成功しやすい、という実務上の知見も示されています。<a class="cite" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic</a></p>
+            <div class="source-grid" aria-label="AI活用の3段階の参照元">
+              <a class="source-card" href="https://x.com/sairahul1/status/2064988918630736353" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Agent explainer</small><b>Rahul：How To Build AI Agents in 2026</b><span>AI、AIエージェント、自律型AIの違いを整理する元ネタとして参照。<br>https://x.com/sairahul1/status/2064988918630736353</span></div>
+              </a>
+              <a class="source-card" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">
+                <div class="source-thumb official">A</div>
+                <div><small>Official / Definition</small><b>Anthropic：Building effective agents</b><span>エージェントの定義と実装上の考え方を補強。<br>https://www.anthropic.com/research/building-effective-agents</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section" id="loop">
+            <h2>自律エージェントの本体は「ループ」</h2>
+            <p>自律エージェントの中身は、魔法の一発回答ではありません。基本はとても地味で、「考えて、動いて、結果を見て、やり直す」の繰り返しです。この考え方は、Reasoning と Acting を組み合わせる ReAct の研究でも整理されています。<a class="cite" href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct paper</a></p>
+            <div class="loop-steps" aria-label="自律ループ">
+              <div class="step">Goal<span>ゴール</span></div>
+              <div class="step">Think<span>考える</span></div>
+              <div class="step">Act<span>行動</span></div>
+              <div class="step">Observe<span>観察</span></div>
+              <div class="step">Reflect<span>振り返り</span></div>
+              <div class="step">Retry<span>修正</span></div>
+              <div class="step">Done<span>完了</span></div>
+            </div>
+            <p>これまで多くの人は、AIに一回プロンプトを投げて終わりでした。これから重要になるのは、一回の答えをうまく書かせることだけではなく、<strong>AIが次の一歩を決め、結果を見て軌道修正する流れ</strong>を設計することです。人間でいえば「やってみて、確認して、直す」が仕事の基本です。AIにもその流れを持たせると、ただの回答役から作業パートナーに近づきます。</p>
+            <div class="source-grid" aria-label="ループ設計の参照元">
+              <a class="source-card" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Loop Engineering</small><b>Addy Osmani：Loop Engineering</b><span>ループ設計、理解の負債、検証設計の論点として参照。<br>https://x.com/addyosmani/status/2064127981161959567</span></div>
+              </a>
+              <a class="source-card" href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">
+                <div class="source-thumb official">R</div>
+                <div><small>Paper / ReAct</small><b>ReAct：Reasoning + Acting</b><span>「考える」と「行動する」を組み合わせる基本構造の論文。<br>https://arxiv.org/abs/2210.03629</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section" id="components">
+            <h2>動くエージェントに必要な5つの部品</h2>
+            <p>実務で使える自律エージェントには、少なくとも次の5つが必要です。難しい部品に見えますが、要するに「考える人」「手を動かす道具」「覚えておくメモ」「やり直す仕組み」「最後に確認する目」です。</p>
+            <div class="parts">
+              <div class="part"><b>脳</b><br>次に何をするかを考えるLLM。</div>
+              <div class="part"><b>手</b><br>検索、API、ファイル操作などのツール。</div>
+              <div class="part"><b>メモ</b><br>途中経過、判断、前提を失わないための記録。</div>
+              <div class="part"><b>ループ</b><br>作って終わりではなく、観察して直す仕組み。</div>
+              <div class="part"><b>検証</b><br>成果物が本当に条件を満たすか確認する品質ゲート。</div>
+            </div>
+            <p>OpenAIのAgents SDKでも、エージェントは指示、ツール、ハンドオフ、ガードレール、構造化出力などを組み合わせて設計するものとして説明されています。つまり「賢いモデルを呼ぶ」だけではなく、周辺の実行設計が重要です。<a class="cite" href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">OpenAI Agents SDK</a></p>
+            <div class="plain-note"><b>ここがよくある勘違いです。</b> モデルが賢ければ全部うまくいく、というより、賢いモデルが動きやすい環境を作るほど成果が安定します。優秀な人に仕事を頼むときでも、目的・資料・権限・締切・確認基準がないと困るのと同じです。</div>
+            <div class="source-grid" aria-label="構成要素の参照元">
+              <a class="source-card" href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Verification</small><b>Lance Martin：検証用サブエージェントの考え方</b><span>作る役とチェックする役を分ける文脈として参照。<br>https://x.com/RLanceMartin/status/2064397389189071163</span></div>
+              </a>
+              <a class="source-card" href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">
+                <div class="source-thumb official">O</div>
+                <div><small>Official / SDK</small><b>OpenAI Agents SDK</b><span>ツール、ハンドオフ、ガードレールの整理に使用。<br>https://openai.github.io/openai-agents-python/agents/</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section" id="frontier">
+            <h2>いま起きている変化は「待つAI」から「任せるAI」へ</h2>
+            <p>現在のトレンドは、単にAIの返答が速くなることではありません。数分で終わる補助作業から、数時間単位で走る調査、コード修正、データ整理、レポート作成へと、AIが担える仕事の長さが伸びています。昔は画面の前で返答を待っていましたが、これからは「ここまでやっておいて」と任せる場面が増えていきます。</p>
+            <p>この流れを支えているのが、ツール連携の標準化です。たとえばAnthropicが公開したModel Context Protocolは、AIアプリケーションと外部データ・業務ツールをつなぐためのオープン標準として紹介されています。<a class="cite" href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">MCP announcement</a></p>
+            <p>今後は、AIごとに個別連携を作るのではなく、AIが使える道具箱を標準化していく方向に進みます。これは「AI版のUSB規格」のような発想です。接続が標準化されるほど、エージェントは社内の資料、SaaS、コードベース、データベースに自然にアクセスしやすくなります。</p>
+            <div class="source-grid" aria-label="最新トレンドの参照元">
+              <a class="source-card" href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Trend phrase</small><b>ATSUSHI AI：「待つ」から「任せて寝る」へ</b><span>表現として参照。投稿内の未検証情報は本文では断定材料にしていません。<br>https://x.com/ATSUSHI_AI_0/status/2065263742062129410</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Memory</small><b>Claude Code Studio：Memory Files速報</b><span>メモリ設計・ファイル型記録の話題として参照。<br>https://x.com/ClaudeCode_love/status/2058840543820689577</span></div>
+              </a>
+            </div>
+            <div class="warning">
+              <strong>ただし、任せる範囲が広がるほど危険も増えます。</strong><br>
+              AIが長く動くほど、前提のズレ、不要な作業、誤った判断、コスト膨張も起きやすくなります。だから「自律化」と「放置」は別物です。任せるほど、途中で見直せる仕組みが大切になります。
+            </div>
+          </section>
+
+          <section class="section" id="failure">
+            <h2>自律エージェントが失敗する6つの理由</h2>
+            <p>自律エージェントは、うまく作れば強力です。一方で、失敗パターンもかなりはっきりしています。だいたいは「AIが弱い」よりも、「仕事の任せ方が雑だった」ことで起きます。</p>
+            <ol>
+              <li><strong>メモリがない。</strong>前に何を試したか忘れ、同じ失敗を繰り返す。</li>
+              <li><strong>ツールがない。</strong>最新情報や実データを確認できず、もっともらしい推測で止まる。</li>
+              <li><strong>ループがない。</strong>一回出力して終わり、改善が起きない。</li>
+              <li><strong>検証がない。</strong>間違った成果物を「完了」と判断する。</li>
+              <li><strong>停止条件がない。</strong>いつまでも動き続け、時間やAPIコストを浪費する。</li>
+              <li><strong>自律性を与えすぎる。</strong>狭い範囲で試す前に、重要判断まで任せてしまう。</li>
+            </ol>
+            <p>Anthropicの記事でも、エージェント設計では単純さ、透明性、ツール仕様、テストしやすさが重要だとされています。複雑な自律性を最初から目指すより、まず小さく確実に動くループを作る方が堅実です。いきなり会社全体を任せるのではなく、まずは「この1本のレポートを作る」「このフォルダだけ整理する」くらいから始めるのが安全です。<a class="cite" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic</a></p>
+          </section>
+
+          <section class="section" id="cost">
+            <h2>コストという現実の壁</h2>
+            <p>自律エージェントは、裏側で何度も推論し、ツールを呼び、結果を読み、やり直します。つまり、一回のチャットよりもトークンと実行回数を多く使います。便利になるぶん、放っておくとコストも増えます。</p>
+            <p>そのため、本番運用では「どの作業を高性能モデルに任せるか」「どこを軽量モデルやルール処理に逃がすか」「どのタイミングで人間確認を挟むか」を設計する必要があります。OpenAIのAgents SDKがガードレールや人間レビューをワークフローの成長に合わせて扱うよう案内しているのも、この現実に近い話です。<a class="cite" href="https://developers.openai.com/api/docs/guides/agents" target="_blank" rel="noopener">OpenAI docs</a></p>
+            <div class="source-grid" aria-label="コストと運用の参照元">
+              <a class="source-card" href="https://x.com/ai_kisuke/status/2065195159244112318" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Setup example</small><b>キスケ：実践セットアップ例</b><span>モデル分担・運用設計の実例として参照。<br>https://x.com/ai_kisuke/status/2065195159244112318</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Token cost</small><b>Rahul：Loopsとトークンコスト</b><span>ループ運用に伴うコスト感の話題として参照。<br>https://x.com/sairahul1/status/2064277888216555684</span></div>
+              </a>
+            </div>
+            <div class="quote">これから問われるのは「AIに任せられるか」だけではありません。「どこまで任せると、品質とコストのバランスが合うか」です。</div>
+          </section>
+
+          <section class="section" id="forecast">
+            <h2>この先2〜3年の予測</h2>
+            <p>現時点の流れから見ると、次の2〜3年でAI活用は次の方向に進む可能性が高いです。もちろん未来を断言することはできません。ただ、いま見えている流れを伸ばすと、かなり自然にこうなりそうです。</p>
+            <h3>1. 仕事の単位が「タスク」から「成果」へ移る</h3>
+            <p>「この文章を要約して」ではなく、「月曜までに競合調査をまとめ、意思決定できる資料にして」という渡し方が増えます。人間は作業手順ではなく、成果物の条件を定義します。</p>
+            <h3>2. ツール連携は標準化される</h3>
+            <p>MCPのような標準が広がるほど、AIは複数のツールを横断しやすくなります。AIの価値は、モデル単体の賢さだけでなく、どの情報と行動に接続できるかで決まります。</p>
+            <h3>3. 作るAIとチェックするAIが分かれる</h3>
+            <p>記事、コード、レポート、広告クリエイティブなど、出力を作る役と検証する役を分ける構成が一般化します。これは人間の仕事でも、制作とレビューを分ける方が品質が安定しやすいのと同じです。</p>
+            <h3>4. 理解の負債が新しいリスクになる</h3>
+            <p>AIが速く作れるほど、人間が読んでいない成果物も増えます。自分が理解していないコード、設計、文章が積み上がると、後から修正できなくなります。自律化が進むほど、人間側の理解とレビューはむしろ重要になります。</p>
+            <div class="source-grid" aria-label="予測の参照元">
+              <a class="source-card" href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Long-running agents</small><b>Addy Osmani：長時間タスクとエージェント</b><span>タスクの長時間化・長期自律化の観測として参照。<br>https://x.com/addyosmani/status/2061696286840279057</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Understanding debt</small><b>Addy Osmani：Loop Engineering</b><span>理解の負債と検証の重要性の文脈として参照。<br>https://x.com/addyosmani/status/2064127981161959567</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section" id="practical-use">
+            <h2>goal / loop をどう使えばいいか</h2>
+            <p>ここまでの話を実務に落とすなら、まず覚えるのは <strong>goal と loop の使い分け</strong> です。ざっくり言うと、<strong>goal は「何を達成したいか」を決めるため</strong>、<strong>loop は「達成するまで回す作業」を作るため</strong>に使います。</p>
+            <div class="plain-note"><b>順番は、goal が先です。</b> 目的がぼんやりしたまま loop を回すと、AIは一生懸命に動いてくれますが、向かう先がズレます。まず「何ができたら成功か」を決めて、そのあとに「どう繰り返して近づくか」を設計します。</div>
+
+            <div class="use-flow" aria-label="goal loop の使い方">
+              <div class="use-step">
+                <strong>1. /goal</strong>
+                <p>最初に、成果物・読者・合格基準・期限・禁止事項を決めます。ここはAIに作業させるというより、AIと一緒に依頼内容を固める時間です。</p>
+              </div>
+              <div class="use-step">
+                <strong>2. /loop</strong>
+                <p>次に、調査、下書き、検証、修正の流れを作ります。AIが一回で終わらず、結果を見ながら改善する状態にします。</p>
+              </div>
+              <div class="use-step">
+                <strong>3. /check</strong>
+                <p>最後に、人間または別AIで確認します。事実、抜け漏れ、読みやすさ、目的とのズレを見ます。ここを飛ばすと一番事故りやすいです。</p>
+              </div>
+            </div>
+
+            <h3>/goal で決めること</h3>
+            <p>/goal は、AIに「まず目的を一緒に整理して」と頼む使い方です。特に、記事、LP、営業資料、リサーチ、コード修正のように、最初の方向づけが大事な仕事で効きます。</p>
+            <div class="template-box">
+              <b>/goal テンプレ</b>
+              <pre>/goal
+目的:
+誰に向けたものか:
+最終成果物:
+必ず満たしたい条件:
+使ってよい情報:
+使ってはいけない情報:
+トーン:
+締切:
+最初に確認してほしいこと:</pre>
+            </div>
+
+            <h3>/loop で回すこと</h3>
+            <p>/loop は、AIに「一回で終わらず、作る、確認する、直すを繰り返して」と頼む使い方です。向いているのは、正解が一発で出にくい仕事です。たとえば、記事のブラッシュアップ、広告訴求の比較、コードの修正、資料の改善、競合調査などです。</p>
+            <div class="template-box">
+              <b>/loop テンプレ</b>
+              <pre>/loop
+ゴール:
+最初の作業:
+各ループでやること:
+1. 作る
+2. 自分でチェックする
+3. 問題点を3つまで出す
+4. 修正する
+5. 改善ログを残す
+
+停止条件:
+最大ループ回数:
+人間に確認を求める条件:
+最終出力形式:</pre>
+            </div>
+
+            <h3>実務での使い分け例</h3>
+            <div class="example-list">
+              <div class="example-card">
+                <h3>ブログ記事を書く</h3>
+                <p><strong>/goal:</strong> 読者、記事の主張、避けたい表現、参照元の扱いを決める。</p>
+                <p><strong>/loop:</strong> 構成案、初稿、読みやすさチェック、引用チェック、タイトル改善を繰り返す。</p>
+              </div>
+              <div class="example-card">
+                <h3>広告クリエイティブを作る</h3>
+                <p><strong>/goal:</strong> 商品、ターゲット、刺したい悩み、NG訴求、成果指標を決める。</p>
+                <p><strong>/loop:</strong> 訴求案を出し、弱い理由を分析し、別角度で作り直す。</p>
+              </div>
+              <div class="example-card">
+                <h3>コードを直す</h3>
+                <p><strong>/goal:</strong> 直したい挙動、触ってよい範囲、壊してはいけない機能を決める。</p>
+                <p><strong>/loop:</strong> 原因調査、修正、テスト、失敗ログ確認、再修正を回す。</p>
+              </div>
+              <div class="example-card">
+                <h3>リサーチをする</h3>
+                <p><strong>/goal:</strong> 判断したいこと、必要な粒度、信用できる情報源を決める。</p>
+                <p><strong>/loop:</strong> 情報収集、要約、矛盾チェック、追加検索、結論の更新を繰り返す。</p>
+              </div>
+            </div>
+
+            <h3>そのまま使える依頼例</h3>
+            <div class="template-box">
+              <b>記事改善の依頼例</b>
+              <pre>/goal
+このAIトレンド記事を、AIに詳しくない経営者でも読めるブログ記事にしたい。
+読後に「AIエージェントは便利そうだが、放置せず設計と検証が必要」と理解してもらう。
+文体は親しみやすく、断定しすぎず、参照元URLは本文中に残す。
+
+/loop
+最大3回まで改善して。
+各回で、読みづらい箇所、具体例が足りない箇所、根拠が弱い箇所をチェックし、本文を修正して。
+最後に、変更点とまだ人間が確認すべき点を出して。</pre>
+            </div>
+
+            <div class="warning">
+              <strong>最初から完全自動化を狙わない。</strong><br>
+              実用では「goalで目的を固める」「loopで改善する」「checkで止める」の3つを小さく回すだけでもかなり効果があります。慣れてきたら、調査、下書き、検証、投稿準備のように範囲を広げていくのが安全です。
+            </div>
+
+            <div class="source-grid" aria-label="goal loop 実践の参照元">
+              <a class="source-card" href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Practical use</small><b>そら：/loop と /goal の使い分け</b><span>goal と loop を分けて実務に使う考え方の参考。<br>https://x.com/sora19ai/status/2065560599623590174</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Playbook</small><b>AI Edge：/loop プレイブック</b><span>反復改善の型を考える参考。<br>https://x.com/aiedge_/status/2065011214783262846</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="section" id="practice">
+            <h2>では、今日からどう扱うべきか</h2>
+            <p>自律エージェントを使うときの心構えは、シンプルです。いきなり全自動化しない。まず小さく閉じたループから始め、合格基準と停止条件を置くことです。最初から「全部よろしく」ではなく、「ここまでやって、ここで止まって、ここを確認して」と渡すのがコツです。</p>
+            <div class="checklist">
+              <div class="check"><div><strong>ゴールを書く</strong><br>何ができたら成功かを一文で定義する。</div></div>
+              <div class="check"><div><strong>制約を書く</strong><br>触ってよい範囲、使ってよい情報、禁止事項を決める。</div></div>
+              <div class="check"><div><strong>確認役を置く</strong><br>作ったものを別視点でチェックさせる。</div></div>
+              <div class="check"><div><strong>止め方を決める</strong><br>最大ステップ、タイムアウト、人間確認の条件を置く。</div></div>
+              <div class="check"><div><strong>記録を残す</strong><br>判断理由、変更履歴、未解決事項を外部ファイルに残す。</div></div>
+              <div class="check"><div><strong>小さく広げる</strong><br>成功したループだけを、少しずつ範囲拡大する。</div></div>
+            </div>
+            <p>AIは、理解を避けるために使うと危険です。一方で、理解したうえでレバレッジをかける道具として使えば、仕事の速度も範囲も大きく広がります。大事なのは、AIに丸投げすることではなく、AIが良い仕事をしやすい形に仕事を整えることです。</p>
+            <div class="quote">これから重要になるのは、プロンプトをうまく書く人ではなく、AIが発見し、計画し、実行し、検証し、止まる仕組みを設計できる人です。</div>
+            <div class="source-grid" aria-label="実践ステップの参照元">
+              <a class="source-card" href="https://x.com/koutarou_furuno/status/2065034757789073762" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Japanese note</small><b>古野光太朗：loop設計の日本語整理</b><span>VISION.mdなど、実践ステップの参考として参照。<br>https://x.com/koutarou_furuno/status/2065034757789073762</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Playbook</small><b>AI Edge：/loop プレイブック</b><span>小さなループを作る運用例として参照。<br>https://x.com/aiedge_/status/2065011214783262846</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Practical use</small><b>そら：/loop と /goal の使い分け</b><span>ゴール設定とループ運用を分けて考える参考として追加。<br>https://x.com/sora19ai/status/2065560599623590174</span></div>
+              </a>
+              <a class="source-card" href="https://x.com/aohiroshi/status/2064905492284231778" target="_blank" rel="noopener">
+                <div class="source-thumb">𝕏</div>
+                <div><small>X / Japanese summary</small><b>Hiroshi：元記事の日本語要約</b><span>英語圏のループ設計論点を日本語で追う補助線として追加。<br>https://x.com/aohiroshi/status/2064905492284231778</span></div>
+              </a>
+            </div>
+          </section>
+
+          <section class="source-box" id="sources">
+            <h2>参照元</h2>
+            <ul class="sources">
+              <li><b>ReAct: Synergizing Reasoning and Acting in Language Models</b><a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">https://arxiv.org/abs/2210.03629</a></li>
+              <li><b>Anthropic: Building effective agents</b><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">https://www.anthropic.com/research/building-effective-agents</a></li>
+              <li><b>Anthropic: Introducing the Model Context Protocol</b><a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">https://www.anthropic.com/news/model-context-protocol</a></li>
+              <li><b>Anthropic: Code execution with MCP</b><a href="https://www.anthropic.com/engineering/code-execution-with-mcp" target="_blank" rel="noopener">https://www.anthropic.com/engineering/code-execution-with-mcp</a></li>
+              <li><b>OpenAI Agents SDK</b><a href="https://openai.github.io/openai-agents-python/agents/" target="_blank" rel="noopener">https://openai.github.io/openai-agents-python/agents/</a></li>
+              <li><b>OpenAI API: Agents guide</b><a href="https://developers.openai.com/api/docs/guides/agents" target="_blank" rel="noopener">https://developers.openai.com/api/docs/guides/agents</a></li>
+              <li><b>Addy Osmani：長時間稼働エージェント</b><a href="https://x.com/addyosmani/status/2061696286840279057" target="_blank" rel="noopener">https://x.com/addyosmani/status/2061696286840279057</a></li>
+              <li><b>Addy Osmani：Loop Engineering</b><a href="https://x.com/addyosmani/status/2064127981161959567" target="_blank" rel="noopener">https://x.com/addyosmani/status/2064127981161959567</a></li>
+              <li><b>Rahul：Loops</b><a href="https://x.com/sairahul1/status/2064277888216555684" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064277888216555684</a></li>
+              <li><b>Rahul：How To Build AI Agents in 2026</b><a href="https://x.com/sairahul1/status/2064988918630736353" target="_blank" rel="noopener">https://x.com/sairahul1/status/2064988918630736353</a></li>
+              <li><b>Lance Martin：Designing loops</b><a href="https://x.com/RLanceMartin/status/2064397389189071163" target="_blank" rel="noopener">https://x.com/RLanceMartin/status/2064397389189071163</a></li>
+              <li><b>ATSUSHI AI：「待つ」から「任せて寝る」へ</b><a href="https://x.com/ATSUSHI_AI_0/status/2065263742062129410" target="_blank" rel="noopener">https://x.com/ATSUSHI_AI_0/status/2065263742062129410</a></li>
+              <li><b>Claude Code Studio：Memory Files速報</b><a href="https://x.com/ClaudeCode_love/status/2058840543820689577" target="_blank" rel="noopener">https://x.com/ClaudeCode_love/status/2058840543820689577</a></li>
+              <li><b>古野光太朗：loop設計の日本語整理</b><a href="https://x.com/koutarou_furuno/status/2065034757789073762" target="_blank" rel="noopener">https://x.com/koutarou_furuno/status/2065034757789073762</a></li>
+              <li><b>キスケ：実践セットアップ</b><a href="https://x.com/ai_kisuke/status/2065195159244112318" target="_blank" rel="noopener">https://x.com/ai_kisuke/status/2065195159244112318</a></li>
+              <li><b>AI Edge：/loop プレイブック</b><a href="https://x.com/aiedge_/status/2065011214783262846" target="_blank" rel="noopener">https://x.com/aiedge_/status/2065011214783262846</a></li>
+              <li><b>AI駆動塾：Fableの使い方メモ</b><a href="https://x.com/L_go_mrk/status/2065380841572749632" target="_blank" rel="noopener">https://x.com/L_go_mrk/status/2065380841572749632</a></li>
+              <li><b>そら：/loop と /goal の使い分け</b><a href="https://x.com/sora19ai/status/2065560599623590174" target="_blank" rel="noopener">https://x.com/sora19ai/status/2065560599623590174</a></li>
+              <li><b>Hiroshi：元記事の日本語要約</b><a href="https://x.com/aohiroshi/status/2064905492284231778" target="_blank" rel="noopener">https://x.com/aohiroshi/status/2064905492284231778</a></li>
+            </ul>
+          </section>
+        </article>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
