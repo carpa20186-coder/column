@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>【IPS出版社内コラム】Claude Fable 5はなぜ3日で止まったのか</title>
+  <meta name="description" content="Claude Fable 5とMythos 5の公開から停止までの3日間を、公式発表・報道・X上の反応をもとに整理した外部公開向け解説記事。">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --sub: #566276;
+      --faint: #7a8596;
+      --paper: #ffffff;
+      --page: #f5f7fb;
+      --panel: #eef3f9;
+      --line: #d8e0eb;
+      --blue: #1167b1;
+      --blue-soft: #e8f2ff;
+      --green: #177c63;
+      --warn: #a65f00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      line-height: 1.85;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 36px;
+      align-items: end;
+      padding: 64px 0 34px;
+    }
+
+    .kicker {
+      width: fit-content;
+      margin: 0 0 18px;
+      padding: 6px 10px;
+      border: 1px solid #bcd3ef;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: #0d4f8c;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      display: block;
+    }
+
+    .lead {
+      margin: 22px 0 0;
+      max-width: 760px;
+      color: #344052;
+      font-size: 19px;
+      line-height: 1.9;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+      color: var(--sub);
+      font-size: 14px;
+    }
+
+    .meta span {
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .date-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .date-panel strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .date-panel p {
+      margin: 0;
+      color: var(--sub);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 760px) 280px;
+      gap: 42px;
+      padding: 42px 0 80px;
+      align-items: start;
+    }
+
+    article {
+      min-width: 0;
+    }
+
+    aside {
+      position: sticky;
+      top: 20px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    aside h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .toc {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .toc a {
+      color: var(--sub);
+      text-decoration: none;
+    }
+
+    section {
+      margin-bottom: 48px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 29px;
+      line-height: 1.34;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      font-size: 20px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 18px;
+    }
+
+    strong {
+      font-weight: 800;
+    }
+
+    .marker {
+      padding: 0 .12em;
+      background: linear-gradient(transparent 58%, #fff0a8 58%);
+      font-weight: 800;
+    }
+
+    .thesis {
+      margin: 24px 0;
+      padding: 20px 22px;
+      border: 1px solid #f1d37a;
+      border-left: 5px solid #d59a00;
+      border-radius: 8px;
+      background: #fffaf0;
+      color: #3d2d0f;
+      font-size: 18px;
+      line-height: 1.8;
+      font-weight: 800;
+    }
+
+    .key-box {
+      margin: 24px 0;
+      padding: 20px;
+      border: 1px solid #b8d7cd;
+      border-radius: 8px;
+      background: #f4fbf8;
+    }
+
+    .key-box p {
+      margin: 0 0 12px;
+      color: #153b32;
+      font-weight: 800;
+    }
+
+    .key-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .key-list li {
+      padding-left: 18px;
+      position: relative;
+      color: #2d4b43;
+      line-height: 1.65;
+    }
+
+    .key-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .78em;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 24px 0 6px;
+    }
+
+    .summary-item {
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .summary-item span {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--faint);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .summary-item strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+      margin: 24px 0 6px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 18px;
+      padding: 16px 18px;
+      background: #fff;
+    }
+
+    .timeline-row + .timeline-row {
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-row time {
+      color: var(--blue);
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .timeline-row p {
+      margin: 0;
+      color: #344052;
+      line-height: 1.75;
+    }
+
+    .callout {
+      margin: 24px 0;
+      padding: 18px 20px;
+      border: 1px solid #bad4e9;
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      background: #f5f9ff;
+      color: #2b3c52;
+      font-size: 15px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0 6px;
+    }
+
+    .comparison-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .comparison-card.is-fable {
+      border-color: #a9d3c5;
+      background: #f4fbf8;
+    }
+
+    .comparison-card span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--faint);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .comparison-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .comparison-card p {
+      margin: 0;
+      color: #344052;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 24px 0 6px;
+    }
+
+    .fit-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .fit-card.is-good {
+      border-color: #a9d3c5;
+      background: #f4fbf8;
+    }
+
+    .fit-card.is-bad {
+      border-color: #efc9b5;
+      background: #fff7f2;
+    }
+
+    .fit-card h3 {
+      margin: 0 0 12px;
+      font-size: 19px;
+    }
+
+    .fit-card ul {
+      margin: 0;
+      padding-left: 1.2em;
+      color: #344052;
+    }
+
+    .fit-card li {
+      margin-bottom: 8px;
+      line-height: 1.65;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin: 24px 0;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 92px;
+      padding: 14px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .flow-step + .flow-step::before {
+      content: "→";
+      position: absolute;
+      left: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .flow-step span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .flow-step strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .post-stack {
+      display: grid;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+
+    .x-card {
+      display: block;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .x-card .twitter-tweet,
+    .x-card iframe {
+      margin: 18px auto !important;
+      max-width: 100% !important;
+    }
+
+    .x-url {
+      display: block;
+      padding: 12px 14px 10px;
+      color: var(--blue);
+      font-size: 15px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+
+    .youtube-card {
+      display: block;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .youtube-preview {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .youtube-preview img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .youtube-preview::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 78px;
+      height: 54px;
+      border-radius: 14px;
+      background: rgba(255, 0, 0, 0.88);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.28);
+    }
+
+    .youtube-preview::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-38%, -50%);
+      border-left: 19px solid #fff;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+    }
+
+    .jp-note {
+      margin: 18px 0 0;
+      color: var(--sub);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+
+    .source-links {
+      margin: 0;
+      padding-left: 1.2em;
+      color: #344052;
+      font-size: 15px;
+    }
+
+    .source-links li {
+      margin-bottom: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 960px) {
+      .hero-inner,
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-grid,
+      .fit-grid,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-step + .flow-step::before {
+        content: "";
+        left: 18px;
+        top: -12px;
+        width: 2px;
+        height: 18px;
+        background: var(--line);
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero-inner {
+        padding-top: 38px;
+      }
+
+      h1 {
+        font-size: 30px;
+        line-height: 1.16;
+        word-break: break-all;
+      }
+
+      .lead {
+        font-size: 16px;
+        word-break: break-all;
+      }
+
+      .thesis {
+        padding: 16px;
+        font-size: 16px;
+        word-break: break-all;
+      }
+
+      .date-panel p,
+      section p,
+      section li,
+      .callout {
+        word-break: break-all;
+      }
+
+      section {
+        padding: 22px 18px;
+      }
+
+      .timeline-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell hero-inner">
+      <div>
+        <p class="kicker">公開3日で停止されたAIモデル</p>
+        <h1><span>【IPS出版社内コラム】</span><span>Claude Fable 5はなぜ3日で止まったのか</span></h1>
+        <p class="lead">Anthropicが発表した新しいAIモデル「Claude Fable 5」は、出てすぐに大きな話題になり、その数日後に米国政府の指令で使えなくなりました。何がすごかったのか、なぜ止まったのか、Xではどんな反応があったのかを、できるだけ分かりやすく整理します。</p>
+        <p class="meta">
+          <span>最終更新：2026年6月13日</span>
+          <span>公開日：2026年6月9日</span>
+          <span>停止発表：2026年6月12日 米国時間</span>
+        </p>
+      </div>
+      <div class="date-panel">
+        <strong>いつ停止になったのか</strong>
+        <p>Anthropicは、米国時間2026年6月12日17:21（ET）に政府から指令を受けたと説明しています。日本時間では2026年6月13日6:21ごろです。その後、Fable 5 / Mythos 5を使えないようにしたと発表しました。</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <main>
+      <article>
+        <section id="overview">
+          <h2>まず結論</h2>
+          <p>Claude Fable 5は、Anthropicが2026年6月9日に公開した新しい上位モデルです。かなり強力なモデルですが、危険な使い方を防ぐために、<span class="marker">安全装置を強めに入れた一般向け版</span>として出されました。</p>
+          <p>ところが公開から数日後、米国政府は「安全保障上の理由」で、Fable 5とMythos 5を外国籍ユーザーに使わせないよう指示しました。対象は米国外の人だけでなく、米国内にいる外国籍の人や、外国籍のAnthropic従業員にも及ぶと説明されています。そのためAnthropicは、<strong>いったん全顧客のアクセスを止める形</strong>を取りました。</p>
+
+          <div class="thesis">
+            Fable 5の本質は、「すごいAIが出た」ことだけではありません。AIが便利な道具から「業務を任せる相手」に近づき、その瞬間に国家規制の対象にもなったことです。
+          </div>
+
+          <div class="key-box">
+            <p>この記事で押さえるポイント</p>
+            <ul class="key-list">
+              <li>Fable 5は、単なる文章生成AIではなく、長い仕事を任せるAIエージェントに近い存在として受け止められました。</li>
+              <li>停止は単なる障害ではなく、最先端AIが国家安全保障・輸出管理の対象になり始めた出来事です。</li>
+              <li>WEBマーケ・コンテンツ販売では、広告文作成よりも、ファネル全体の分析と改善に使えそうでした。</li>
+            </ul>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span>What</span>
+              <strong>Fable 5はMythos級の一般向け最上位モデル</strong>
+            </div>
+            <div class="summary-item">
+              <span>When</span>
+              <strong>2026年6月9日公開、6月12日米国時間に停止発表</strong>
+            </div>
+            <div class="summary-item">
+              <span>Why</span>
+              <strong>安全保障上の懸念と、安全装置を破る試みが引き金</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="timeline">
+          <h2>3日間で何が起きたのか</h2>
+          <div class="timeline">
+            <div class="timeline-row">
+              <time>6月9日</time>
+              <p>AnthropicがClaude Fable 5 / Mythos 5を発表。Fable 5は一般ユーザー向け、Mythos 5は一部の信頼済みパートナー向けとして位置づけられました。Xでは「ついにMythos級が一般に来た」と期待が広がります。</p>
+            </div>
+            <div class="timeline-row">
+              <time>6月10日から11日</time>
+              <p>能力リスト、ベンチマーク、体験談が広がります。特にコード移行、ゲームプレイ、創薬、長い資料を読む力が話題になりました。一方で、安全装置が強すぎるのではないか、途中で別モデルに切り替わっているのではないか、という実務的な指摘も出始めます。</p>
+            </div>
+            <div class="timeline-row">
+              <time>6月12日 米国時間</time>
+              <p>米国政府が安全保障上の理由から、Fable 5 / Mythos 5を外国籍ユーザーに使わせないよう指示します。Anthropicは米国時間17:21に指令を受け取ったと説明し、その後アクセス停止を発表しました。日本時間では6月13日朝の出来事です。</p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>停止日は「米国時間2026年6月12日」、日本では「2026年6月13日朝」と見るのが自然です。</strong><br>
+            Anthropic公式声明では、政府指令を受け取った時刻を米国東部時間2026年6月12日17:21としています。
+          </div>
+        </section>
+
+        <section id="what-is-fable">
+          <h2>Fable 5とは何だったのか</h2>
+          <p>Fable 5は、Claudeの中でもかなり上位に位置づけられるモデルとして発表されました。ざっくり言うと、「非常に強いモデルを、一般の人も使えるようにした版」です。</p>
+          <p>ただし、何でも自由に答えるモデルではありません。サイバー攻撃、生物・化学、モデルのコピーに近い使い方など、危険につながりやすい話題では、回答を断ったり、別の弱めのモデルに切り替えたりする設計でした。ここが、制限の少ないMythos 5との大きな違いです。</p>
+          <p>できることとしては、長い作業を任せる、巨大なコードを読む、画面や図を見て内容を理解する、大量の資料を整理する、研究の仮説出しを手伝う、といった用途が強調されました。料金は公式発表で入力100万トークンあたり10ドル、出力100万トークンあたり50ドル。Pro / Max / Teamなどでは、当初2026年6月22日まで追加料金なしで使える予定でした。</p>
+
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <span>Mythos 5</span>
+              <strong>制限の少ない最上位モデル</strong>
+              <p>一部の信頼済みパートナー向け。能力は強い一方で、一般公開にはリスクが大きいモデルとして扱われました。</p>
+            </div>
+            <div class="comparison-card is-fable">
+              <span>Fable 5</span>
+              <strong>一般向けに安全装置を入れた版</strong>
+              <p>Mythos級の力を一般ユーザーにも開くため、安全分類・フォールバック・制限を組み込んだモデルです。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="difference">
+          <h2>これまでのAIと何が違ったのか</h2>
+          <p>Fable 5を理解するときに大事なのは、「文章がうまいAIがまた一つ増えた」と見ないことです。従来のAIは、基本的には人間が作業を細かく分けて、1つずつ頼む使い方が中心でした。要約して、広告文を書いて、コードを直して、表を作って、というように、人間が司令塔になってAIを動かすイメージです。</p>
+          <p>Fable 5で変わったと見るべきなのは、AI側がかなり長い文脈を持ったまま、目的から逆算して作業を組み立てられるようになった点です。つまり、「この文章を書いて」ではなく、「この事業の数字と顧客反応を見て、どこを改善すべきか考えて、必要な制作物まで出して」という頼み方に近づいたということです。</p>
+
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <span>これまでのAI</span>
+              <strong>人間が細かく指示する道具</strong>
+              <p>要約、文章作成、コード修正など、作業単位で依頼する使い方が中心。人間が毎回タスクを切り分ける必要がありました。</p>
+            </div>
+            <div class="comparison-card is-fable">
+              <span>Fable 5で見えた変化</span>
+              <strong>目的から逆算して動く相棒</strong>
+              <p>複数資料、数値、画面、顧客反応をまとめて読み、計画、制作、検証まで一連の流れで扱う方向に近づきました。</p>
+            </div>
+          </div>
+
+          <h3>1. 単発回答から、長い仕事の伴走へ</h3>
+          <p>これまでのAIは、1回の質問に対して良い答えを返すのが得意でした。Fable 5で注目されたのは、数時間単位の作業、複数ステップの調査、設計、実装、検証までをひと続きの仕事として扱える点です。人間が毎回「次はこれをして」と指示しなくても、目的に向けて作業を分解し、途中で必要な確認を入れながら進める方向に近づきました。</p>
+
+          <h3>2. 文章生成AIから、判断材料を統合するAIへ</h3>
+          <p>広告文や記事案を作るだけなら、これまでのAIでも十分にできました。Fable 5で見方が変わったのは、テキスト、画像、画面、コード、数値、顧客の声などをまとめて読ませて、「何が起きているか」を判断させる使い方です。これは単なる出力のきれいさではなく、バラバラの材料をつないで、次の打ち手に変える力です。</p>
+
+          <h3>3. 作るだけでなく、改善ループを回すAIへ</h3>
+          <p>これまでのAI活用は、「LPを作る」「投稿を作る」「資料を作る」で止まりがちでした。Fable 5で期待されたのは、作ったあとに数字や反応を見て、どこを直すべきかまで戻ってこられることです。たとえば、LPを作って終わりではなく、離脱率、ヒートマップ、広告別CVR、LINE登録後の反応まで見て、次の修正案を出す。ここまで含めてAIに任せられる可能性が見えました。</p>
+
+          <h3>4. 人間の役割は、作業者から編集長・責任者へ</h3>
+          <p>Fable 5が本当に強いなら、人間の仕事がなくなるというより、人間の役割が変わります。細かい作業を全部自分で抱えるのではなく、目的、制約、判断基準、守るべきブランドトーン、絶対に外してはいけない事実を決める側に回る。AIに任せる範囲が広がるほど、人間には「何を成功とするか」を定義する力が必要になります。</p>
+
+          <div class="callout">
+            <strong>認識としては、「高性能なチャットAI」ではなく「長い仕事を任せられるAIエージェント」に近づいた、と見るのがよさそうです。</strong><br>
+            ただし、完全な自動運転ではありません。モデルの切り替わり、コスト、安全制限、事実確認、顧客情報の扱いは、人間が管理する必要があります。
+          </div>
+        </section>
+
+        <section id="fit-map">
+          <h2>何に向いていて、何には向かないのか</h2>
+          <p>Fable 5は、万能の置き換え先というより、<strong>重くて長い仕事を前に進めるモデル</strong>として見るのが自然です。短い作業を安く大量に回すAIではなく、複数の材料を読み、判断し、改善案まで組み立てる場面で価値が出ます。</p>
+
+          <div class="fit-grid">
+            <div class="fit-card is-good">
+              <h3>向いている仕事</h3>
+              <ul>
+                <li>複数の資料、数値、顧客反応をまたぐ分析</li>
+                <li>LP、LINE、ウェビナーなどファネル全体の改善</li>
+                <li>競合比較と訴求仮説づくり</li>
+                <li>長い設計書、改善計画、実行手順の作成</li>
+                <li>数時間単位の調査、制作、検証</li>
+              </ul>
+            </div>
+            <div class="fit-card is-bad">
+              <h3>向いていない仕事</h3>
+              <ul>
+                <li>すぐ終わる短文生成だけの作業</li>
+                <li>低単価で大量に回す単純作業</li>
+                <li>正確性が命の最終判断</li>
+                <li>顧客情報を無加工でそのまま投げる作業</li>
+                <li>法務、医療、金融などの責任判断の丸投げ</li>
+              </ul>
+            </div>
+          </div>
+
+          <p>つまり、Fable 5を使うなら「投稿文を10個作って」よりも、「この案件の広告、LP、LINE、申込率、成約率を見て、どこを直すべきか考えて」のほうが本筋です。軽い作業を置き換えるAIではなく、重い判断の前工程を一気に進めるAIとして見るべきです。</p>
+        </section>
+
+        <section id="why-stop">
+          <h2>なぜ止められたのか</h2>
+          <p>Axiosの報道によると、米国商務長官がAnthropicのCEOに書簡を送り、Fable 5とMythos 5を輸出管理の対象にしました。簡単に言うと、<span class="marker">「このモデルは誰にでも自由に使わせてよいものではない」と政府が判断した</span>、ということです。</p>
+          <p>きっかけとして報じられているのは、別の企業がMythosの安全装置を破る方法を見つけたと主張したことです。政府側は、それを安全保障上の心配として受け止めました。一方、Anthropicは「確認した範囲では、そこまで重大なものではなく、他の公開モデルでもできる程度だった」と反論しています。</p>
+          <p>つまり今回の停止は、「Fable 5が高性能だったから話題になった」というだけではありません。強いAIがサイバー、バイオ、インフラ防衛、国家安全保障に近づくほど、企業だけでは公開判断を決められなくなる、という話でもあります。</p>
+        </section>
+
+        <section id="reaction">
+          <h2>この3日間の反応をどう見るべきか</h2>
+          <p>Fable 5への反応は、大きく3つに分かれました。ひとつ目は「とにかく能力がすごい」という驚きです。巨大なコードの移行、ゲームの完走、創薬支援などの話が出て、AIが実務でできることが一段広がったように見えました。</p>
+          <p>ふたつ目は「安全装置が強すぎるのでは」という戸惑いです。強いモデルを一般公開するには安全対策が必要です。ただ、その安全対策が普通の研究や開発まで止めてしまうのではないか、または気づかないうちに別モデルへ切り替わるのではないか、という不安も出ました。</p>
+          <p>三つ目は「AIが国の管理対象になり始めた」という衝撃です。今回の停止は、単なる障害や料金変更ではありません。最先端AIが、国籍、輸出管理、サイバー防衛、政府判断と結びつく存在になったことを示しました。</p>
+        </section>
+
+        <section id="lasting-lessons">
+          <h2>Fable 5が止まっても、残った学び</h2>
+          <p>Fable 5そのものは使えなくなりました。ただ、今回見えた方向性は残ります。大事なのは「幻のモデルが消えた」で終わらせることではなく、次に同じレベルのAIが出たとき、現場がすぐ使える形に準備しておくことです。</p>
+
+          <div class="key-box">
+            <p>停止後も残る学び</p>
+            <ul class="key-list">
+              <li>AIは、単発の文章生成から、長い業務プロセスを扱う方向へ進んでいます。</li>
+              <li>最上位モデルは、突然使えなくなる前提で業務設計する必要があります。</li>
+              <li>資産にすべきなのはモデル名ではなく、材料の集め方、判断基準、検証フローです。</li>
+              <li>人間の役割は、作業者から編集長、検証者、意思決定者へ移っていきます。</li>
+            </ul>
+          </div>
+
+          <p>だからこそ、Fable 5が止まったこと自体よりも、「こういうAIが来たとき、うちの案件では何を渡し、何を判断させ、どこを人間が確認するのか」を決めておくことのほうが重要です。</p>
+        </section>
+
+        <section id="practical-use">
+          <h2>WEBマーケ・コンテンツ販売ではどう使えそうだったのか</h2>
+          <p>Fable 5の価値は、私たちのようにWEBマーケティングやコンテンツ販売をしている現場だと、かなり分かりやすいです。なぜなら、この領域の仕事は「広告文を1本書く」だけでは終わらないからです。顧客理解、訴求づくり、LP、LINE配信、ウェビナー、個別相談、クロージング、数値改善までが全部つながっています。</p>
+          <p>普通のAIでも、単発の広告文や見出し案は出せます。ただ、Fable 5が本当に使えそうだったのは、ファネル全体を見ながら<span class="marker">「どこが詰まっているか」「次に何を直すべきか」「どの訴求を試すべきか」まで考えさせる使い方</span>です。つまり、ただのコピーライターではなく、かなり優秀なマーケ担当の壁打ち相手として使えた可能性があります。</p>
+
+          <div class="flow">
+            <div class="flow-step">
+              <span>Input</span>
+              <strong>広告・LP・LINE・売上データを渡す</strong>
+            </div>
+            <div class="flow-step">
+              <span>Analyze</span>
+              <strong>詰まりと反応の差を見つける</strong>
+            </div>
+            <div class="flow-step">
+              <span>Hypothesis</span>
+              <strong>次に試す訴求仮説を出す</strong>
+            </div>
+            <div class="flow-step">
+              <span>Create</span>
+              <strong>広告文・LP案・配信文に落とす</strong>
+            </div>
+            <div class="flow-step">
+              <span>Review</span>
+              <strong>数字を見て改善ループへ戻す</strong>
+            </div>
+          </div>
+
+          <h3>1. 顧客理解と訴求づくり</h3>
+          <p>コンテンツ販売は、買う前に価値が見えにくい商売です。講座、コミュニティ、コンサル、オンライン教材、スクールなどは、実際に受けてみるまで成果のイメージが湧きにくい。だからこそ、「誰が、何に悩んでいて、どんな未来を欲しがっているのか」を深く掘る必要があります。</p>
+          <p>Fable 5なら、アンケート、個別相談メモ、LINEの返信、セミナー後の感想、過去の成約者の声をまとめて読ませて、「顧客が本当に言っている不安」「表では言わない本音」「刺さっている表現」「逆に反応が悪い言い回し」を整理させる使い方ができそうでした。これは<strong>机上のペルソナ作りではなく、実際の反応データから訴求を作る使い方</strong>です。</p>
+
+          <h3>2. LPやセールスページの改善</h3>
+          <p>LP改善にもかなり相性がよかったはずです。LPのスクリーンショット、ヒートマップ、離脱率、CVR、広告別の流入、過去のABテスト結果を渡して、「どこで読み手が冷めているか」「どの順番で不安を解消すべきか」「ファーストビューで約束していることと、本文で説明していることがズレていないか」を見てもらう使い方です。</p>
+          <p>たとえば、講座販売のLPなら、Fable 5に「このLPは誰に何を約束しているのか」「信頼材料は足りているか」「価格提示の前に不安解消ができているか」「申込ボタン直前に背中を押す情報があるか」をチェックさせる。こういうレビューは、<strong>単なる文章添削ではなく、販売導線全体の点検</strong>に近いです。</p>
+
+          <h3>3. 広告クリエイティブの勝ち筋を増やす</h3>
+          <p>広告運用では、1本の神コピーを当てにいくより、勝ち筋の違う仮説を複数出すことが大事です。Fable 5は、既存の広告結果を読ませて「どの訴求軸が反応しているか」「どの切り口は飽きられているか」「次に試すべき角度は何か」を整理する用途に向いていたと思います。</p>
+          <p>たとえば、同じコンテンツ販売でも、訴求は「副業収入」「時間の自由」「専門スキル」「仲間」「再現性」「個別サポート」「失敗回避」でまったく変わります。Fable 5には、これらをただ羅列させるのではなく、実際の数値やコメントを見ながら「次の3本はこの仮説で出す」と決めるところまで手伝わせるのが実用的です。</p>
+
+          <h3>4. LINE配信・ステップ配信の設計</h3>
+          <p>LINEやメルマガのステップ配信も、Fable 5が強そうな領域です。コンテンツ販売では、いきなり売るよりも、読者の不安を順番にほどいていく必要があります。初回登録直後、教育コンテンツ、セミナー誘導、リマインド、販売、締切前の一押しまで、全部つながっています。</p>
+          <p>Fable 5なら、既存の配信文、クリック率、ブロック率、申込率をまとめて見せて、「どのメッセージで温度感が上がっているか」「どこで売り込み感が強くなりすぎているか」「どの順番なら自然にセミナーへ進めるか」を整理できたはずです。これは、1通ずつ文章を作るというより、顧客の気持ちの流れを設計する仕事です。</p>
+
+          <h3>5. ウェビナーや個別相談の改善</h3>
+          <p>ウェビナー販売や個別相談にも使い道があります。録画の文字起こし、参加者アンケート、チャット欄、成約率、離脱タイミングをまとめて読ませて、「どこで納得が生まれているか」「どの説明が長いか」「反論処理が弱い部分はどこか」を見てもらう使い方です。</p>
+          <p>たとえば、ウェビナー後半で離脱が増えているなら、Fable 5に構成を見せて「価値提供が長すぎるのか」「販売への接続が急なのか」「価格提示前の実績・安心材料が足りないのか」を切り分けさせる。個別相談なら、成約した回と失注した回の会話を比べて、刺さった質問や逆に不安を増やした説明を抽出させる。ここまでできると、現場の改善速度はかなり上がります。</p>
+
+          <h3>6. 日次レポートから次の打ち手を出す</h3>
+          <p>私たちの現場では、広告費、登録数、セミナー申込、参加率、個別相談、成約、売上、CPA、ROASなど、毎日見る数字が多いです。Fable 5は、こうした数字をただ要約するだけでなく、「昨日から何が変わったか」「どの案件が危ないか」「今日やるべき改善は何か」を出す用途に向いていたと思います。</p>
+          <p>特に複数案件を同時に動かしている場合、人間だけだと細かい異変を見落としがちです。Fable 5に案件ごとの数値と直近の施策履歴を渡して、「広告の問題なのか、LPの問題なのか、LINEの問題なのか、セミナー参加率の問題なのか」を切り分けさせる。これは<span class="marker">かなり現場に近い使い方</span>です。</p>
+
+          <div class="callout">
+            <strong>うちのような現場で大事なのは、「いい文章を出すAI」として見ることではありません。</strong><br>
+            広告、LP、LINE、ウェビナー、個別相談、日次レポートをつなげて見て、次の一手を考える相棒として使えるかどうかです。ただし、顧客情報や売上データを扱うなら、データ保存条件、権限管理、ログ、どのモデルが実際に動いたかの確認は必須です。
+          </div>
+        </section>
+
+        <section id="next-actions">
+          <h2>結局、うちは何をすべきか</h2>
+          <p>Fable 5が今すぐ使えるかどうかに関係なく、うちがやるべきことははっきりしています。AIに「何かいい案を出して」と投げるのではなく、案件ごとに材料をそろえ、AIが分析しやすい形にして、改善の型を作ることです。</p>
+
+          <div class="key-box">
+            <p>まず作るべき実務の型</p>
+            <ul class="key-list">
+              <li>直近の広告、LP、LINE、ウェビナー、売上データを1案件分だけまとめる。</li>
+              <li>AIには文章作成の前に、「顧客が迷う場所」と「数字が落ちている場所」を探させる。</li>
+              <li>広告文を出させる前に、次に検証する訴求仮説を3つ作らせる。</li>
+              <li>AIの案は、事実、ブランド、法務、顧客情報の扱いを人間が必ず確認する。</li>
+              <li>モデルが変わっても回せるように、プロンプト、判断基準、改善ログを残す。</li>
+            </ul>
+          </div>
+
+          <p>やるべきことは、Fable 5の復活を待つことではありません。モデルが変わっても回る、<strong>分析、仮説、制作、検証の型</strong>を先に作ることです。そうしておけば、次の強いモデルが来たときに、単なる話題で終わらず、案件改善の速度に変えられます。</p>
+        </section>
+
+        <section id="practice">
+          <h2>実務者が持つべき構え</h2>
+          <h3>実際に動いたモデルを確認する</h3>
+          <p>最上位モデルを選んだつもりでも、規制や安全設定によって別のモデルに切り替わることがあります。成果物だけを見て「Fable 5がやった」と決めつけるのは危険です。</p>
+
+          <h3>ベンチマークと体験談を分ける</h3>
+          <p>新モデルが出た直後は、公式発表、顧客コメント、ランキング、個人の体験談が一気に混ざります。数字を見るときは、「誰が、どの条件で、何を試した数字なのか」まで見る必要があります。</p>
+
+          <h3>特定モデルへの依存を避ける</h3>
+          <p>最上位モデルが突然使えなくなる可能性は、すでに現実のものになりました。重要な仕事では、代わりに使えるモデル、品質チェック、人間の確認、ログの保存まで含めて設計しておくべきです。</p>
+        </section>
+
+        <section id="youtube-references">
+          <h2>YouTubeで見られる日本語解説</h2>
+          <p>文章だけでは掴みにくい人は、動画で全体像を追うのも有効です。Fable 5の概要、公式プロンプトの読み解き、実務での使いどころ、コスト感、停止・炎上まわりまで、日本語で確認しやすいものを並べます。</p>
+
+          <div class="post-stack">
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=t6Zmu-pBZlE" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=t6Zmu-pBZlE</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=t6Zmu-pBZlE" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/t6Zmu-pBZlE/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=q_J9tp0CeXA" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=q_J9tp0CeXA</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=q_J9tp0CeXA" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/q_J9tp0CeXA/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=GegjeYn8zEg" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=GegjeYn8zEg</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=GegjeYn8zEg" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/GegjeYn8zEg/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=w0yrRW3BkpI" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=w0yrRW3BkpI</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=w0yrRW3BkpI" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/w0yrRW3BkpI/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=Z8LY7-gLQjk" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=Z8LY7-gLQjk</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=Z8LY7-gLQjk" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/Z8LY7-gLQjk/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=eJI-lJ5IuZI" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=eJI-lJ5IuZI</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=eJI-lJ5IuZI" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/eJI-lJ5IuZI/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=LP2nn67pWQI" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=LP2nn67pWQI</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=LP2nn67pWQI" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/LP2nn67pWQI/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+
+            <div class="youtube-card">
+              <a class="x-url" href="https://www.youtube.com/watch?v=Awpo4W4SuGg" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=Awpo4W4SuGg</a>
+              <a class="youtube-preview" href="https://www.youtube.com/watch?v=Awpo4W4SuGg" target="_blank" rel="noopener noreferrer" aria-label="YouTubeで動画を見る">
+                <img src="https://i.ytimg.com/vi/Awpo4W4SuGg/hqdefault.jpg" alt="YouTube動画プレビュー" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="marketing-x-reactions">
+          <h2>日本語で読める要約・解説ポスト</h2>
+          <p>英語の一次情報をそのまま並べるだけだと、読者にとっては少し遠い話になります。そこで、公式ドキュメントや海外発表を日本語で噛み砕いている投稿を中心に拾い直しました。</p>
+          <p>特に重要なのは、Fable 5を「質問に答えるAI」ではなく、「複数の資料を読み、計画し、途中経過を監査しながら動くAI」として捉える視点です。WEBマーケやコンテンツ販売でも、単発の文章生成より、調査、設計、改善案づくりに向いていたことが見えてきます。</p>
+
+          <div class="post-stack">
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/t_wada/status/2064618284050448737" target="_blank" rel="noopener noreferrer">https://x.com/t_wada/status/2064618284050448737</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/t_wada/status/2064618284050448737"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/yutakashino/status/2065292729433661860" target="_blank" rel="noopener noreferrer">https://x.com/yutakashino/status/2065292729433661860</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/yutakashino/status/2065292729433661860"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/tetumemo/status/2065577514647589293" target="_blank" rel="noopener noreferrer">https://x.com/tetumemo/status/2065577514647589293</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/tetumemo/status/2065577514647589293"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/okada_ENPR/status/2064482977065972208" target="_blank" rel="noopener noreferrer">https://x.com/okada_ENPR/status/2064482977065972208</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/okada_ENPR/status/2064482977065972208"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/yuya_riala/status/2064510816146321907" target="_blank" rel="noopener noreferrer">https://x.com/yuya_riala/status/2064510816146321907</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/yuya_riala/status/2064510816146321907"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/nexus_ai_2045/status/2064434160081743987" target="_blank" rel="noopener noreferrer">https://x.com/nexus_ai_2045/status/2064434160081743987</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/nexus_ai_2045/status/2064434160081743987"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/yudexai/status/2064637639236755481" target="_blank" rel="noopener noreferrer">https://x.com/yudexai/status/2064637639236755481</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/yudexai/status/2064637639236755481"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/yukimasakiyu/status/2065121939052789851" target="_blank" rel="noopener noreferrer">https://x.com/yukimasakiyu/status/2065121939052789851</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/yukimasakiyu/status/2065121939052789851"></a></blockquote>
+            </div>
+          </div>
+        </section>
+
+        <section id="jp-marketing-x-reactions">
+          <h2>WEBマーケ・コンテンツ販売に近い実務投稿</h2>
+          <p>うちの仕事に近いのは、Fable 5を「バズ投稿を作るAI」として見るより、商品設計、LP、無料プレゼント、有料note、ウェビナー導線、競合分析までまとめて任せられるかという視点です。</p>
+          <p>下の投稿群では、LP制作、マーケ戦略、noteテーマ、読者の悩み、無料配布から有料導線まで、かなり現場に近い使い方が語られています。机上の空論というより、「素材を入れて、設計から改善まで走らせる」方向です。</p>
+
+          <div class="post-stack">
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/yoshio_nocode/status/2064617130046452023" target="_blank" rel="noopener noreferrer">https://x.com/yoshio_nocode/status/2064617130046452023</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/yoshio_nocode/status/2064617130046452023"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/yoshio_nocode/status/2064999441317433480" target="_blank" rel="noopener noreferrer">https://x.com/yoshio_nocode/status/2064999441317433480</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/yoshio_nocode/status/2064999441317433480"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/osuruko1977/status/2064474177848176916" target="_blank" rel="noopener noreferrer">https://x.com/osuruko1977/status/2064474177848176916</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/osuruko1977/status/2064474177848176916"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/akakurot_AI/status/2064974666092237255" target="_blank" rel="noopener noreferrer">https://x.com/akakurot_AI/status/2064974666092237255</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/akakurot_AI/status/2064974666092237255"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/aiaihaijin_rei/status/2065270323864572119" target="_blank" rel="noopener noreferrer">https://x.com/aiaihaijin_rei/status/2065270323864572119</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/aiaihaijin_rei/status/2065270323864572119"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/mindup_nari/status/2064649975494283578" target="_blank" rel="noopener noreferrer">https://x.com/mindup_nari/status/2064649975494283578</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/mindup_nari/status/2064649975494283578"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/tetumemo/status/2064919886707757338" target="_blank" rel="noopener noreferrer">https://x.com/tetumemo/status/2064919886707757338</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/tetumemo/status/2064919886707757338"></a></blockquote>
+            </div>
+          </div>
+        </section>
+
+        <section id="x-reactions">
+          <h2>停止・規制まわりのX反応</h2>
+          <p>停止まわりは、まず公式発表を置き、その下に日本語で要約しているニュース・解説投稿を並べます。英語の引用は最小限にし、読者が日本語で流れを追えるようにしています。</p>
+
+          <div class="post-stack">
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/AnthropicAI/status/2065597531644743999" target="_blank" rel="noopener noreferrer">https://x.com/AnthropicAI/status/2065597531644743999</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/AnthropicAI/status/2065597531644743999"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/ClaudeDevs/status/2065597942602531163" target="_blank" rel="noopener noreferrer">https://x.com/ClaudeDevs/status/2065597942602531163</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/ClaudeDevs/status/2065597942602531163"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/itmedia_news/status/2065617387916017685" target="_blank" rel="noopener noreferrer">https://x.com/itmedia_news/status/2065617387916017685</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/itmedia_news/status/2065617387916017685"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/ken_sugar/status/2065630831956402542" target="_blank" rel="noopener noreferrer">https://x.com/ken_sugar/status/2065630831956402542</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/ken_sugar/status/2065630831956402542"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/miraclemasui/status/2065599975833399548" target="_blank" rel="noopener noreferrer">https://x.com/miraclemasui/status/2065599975833399548</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/miraclemasui/status/2065599975833399548"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/MalwareBibleJP/status/2065618091741225430" target="_blank" rel="noopener noreferrer">https://x.com/MalwareBibleJP/status/2065618091741225430</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/MalwareBibleJP/status/2065618091741225430"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/masahirochaen/status/2065634027022025006" target="_blank" rel="noopener noreferrer">https://x.com/masahirochaen/status/2065634027022025006</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/masahirochaen/status/2065634027022025006"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/AI_masaou/status/2065605665712906393" target="_blank" rel="noopener noreferrer">https://x.com/AI_masaou/status/2065605665712906393</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/AI_masaou/status/2065605665712906393"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/kajikent/status/2065617025817571342" target="_blank" rel="noopener noreferrer">https://x.com/kajikent/status/2065617025817571342</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/kajikent/status/2065617025817571342"></a></blockquote>
+            </div>
+
+            <div class="x-card">
+              <a class="x-url" href="https://x.com/kapikunAI/status/2065603752569323714" target="_blank" rel="noopener noreferrer">https://x.com/kapikunAI/status/2065603752569323714</a>
+              <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><a href="https://x.com/kapikunAI/status/2065603752569323714"></a></blockquote>
+            </div>
+          </div>
+        </section>
+
+        <section id="sources">
+          <h2>主要参照元</h2>
+          <ul class="source-links">
+            <li>Anthropic公式：<a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener noreferrer">Statement on the US government directive to suspend access to Fable 5 and Mythos 5</a></li>
+            <li>Anthropic公式：<a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener noreferrer">Claude Fable 5 and Claude Mythos 5</a></li>
+            <li>Anthropic公式：<a href="https://platform.claude.com/docs/ja/build-with-claude/prompt-engineering/prompting-claude-fable-5" target="_blank" rel="noopener noreferrer">Claude Fable 5 のプロンプティング</a></li>
+            <li>Axios：<a href="https://www.axios.com/2026/06/12/anthropic-trump-mythos-fable-national-security" target="_blank" rel="noopener noreferrer">Trump admin blocks foreign access to Anthropic's most powerful AI</a></li>
+            <li>ITmedia NEWS：<a href="https://www.itmedia.co.jp/news/articles/2606/13/news026.html" target="_blank" rel="noopener noreferrer">「Claude Fable 5」「Mythos 5」全面停止　米政府の指令により</a></li>
+            <li>TechCrunch：<a href="https://techcrunch.com/2026/06/09/anthropics-claude-fable-5-is-a-version-of-mythos-the-public-can-access-today/" target="_blank" rel="noopener noreferrer">Anthropic's Claude Fable 5 is a version of Mythos the public can access today</a></li>
+            <li>Simon Willison：<a href="https://simonwillison.net/2026/Jun/9/claude-fable-5/" target="_blank" rel="noopener noreferrer">Initial impressions of Claude Fable 5</a></li>
+          </ul>
+          <p>注：X投稿は速報・反応・補足として扱い、事実関係の中核は公式発表と報道で確認しています。X上の能力リストや利用者体験は、公開時点の主張・観測として紹介しています。</p>
+        </section>
+      </article>
+
+      <aside>
+        <h2>この記事の構成</h2>
+        <ul class="toc">
+          <li><a href="#overview">まず結論</a></li>
+          <li><a href="#timeline">3日間の流れ</a></li>
+          <li><a href="#what-is-fable">Fable 5とは</a></li>
+          <li><a href="#difference">これまでのAIとの違い</a></li>
+          <li><a href="#fit-map">向いている仕事</a></li>
+          <li><a href="#why-stop">なぜ止められたか</a></li>
+          <li><a href="#reaction">反応の見方</a></li>
+          <li><a href="#lasting-lessons">停止後も残る学び</a></li>
+          <li><a href="#practical-use">WEBマーケでの使い道</a></li>
+          <li><a href="#next-actions">うちは何をすべきか</a></li>
+          <li><a href="#practice">実務者の構え</a></li>
+          <li><a href="#youtube-references">YouTube日本語解説</a></li>
+          <li><a href="#marketing-x-reactions">日本語の要約・解説</a></li>
+          <li><a href="#jp-marketing-x-reactions">実務寄りの日本語反応</a></li>
+          <li><a href="#x-reactions">停止・規制まわり</a></li>
+        </ul>
+      </aside>
+    </main>
+  </div>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
